@@ -1,12 +1,9 @@
 package main
 
 import (
-	"regexp"
 	"sort"
 	"strings"
 )
-
-var re = regexp.MustCompile("^\\w* \\d")
 
 func reorderLogFiles(logs []string) []string {
 	sort.Stable(ByContents(logs))
@@ -62,7 +59,7 @@ func tokens(log string) (string, string) {
 }
 
 func logType(log string) LogType {
-	isDigit := re.MatchString(log)
+	isDigit := isDigit(log[len(log)-1])
 
 	logType := Letter
 	if isDigit {
@@ -70,4 +67,11 @@ func logType(log string) LogType {
 	}
 
 	return logType
+}
+
+func isDigit(i uint8) bool {
+	if i >= '0' && i <= '9' {
+		return true
+	}
+	return false
 }
