@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func Reorder(logs []string) []string {
+func reorderLogFiles(logs []string) []string {
 	var result []string
 	var parsedLogs []Log
 	for _, log := range logs {

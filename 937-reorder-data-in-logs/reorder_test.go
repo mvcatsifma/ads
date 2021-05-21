@@ -30,7 +30,7 @@ func Test_Reorder_1(t *testing.T) {
 
 	for _, tt := range reorderTests {
 		t.Run(tt.name, func(t *testing.T) {
-			var actual = Reorder(tt.log)
+			var actual = reorderLogFiles(tt.log)
 
 			if !reflect.DeepEqual(actual, tt.expected) {
 				t.Errorf("exptected %#v actual %#v", tt.expected, actual)
