@@ -9,24 +9,14 @@ import (
 
 func Reorder(logs []string) []string {
 	var result []string
-	var letterLogs []Log
-	var digitLogs []Log
+	var parsedLogs []Log
 	for _, log := range logs {
-		l := Parse(log)
-		if l.LogType == Digit {
-			digitLogs = append(digitLogs, l)
-		} else {
-			letterLogs = append(letterLogs, l)
-		}
+		parsedLogs = append(parsedLogs, Parse(log))
 	}
 
-	sort.Sort(ByWords(letterLogs))
+	sort.Stable(ByWords(parsedLogs))
 
-	for _, l := range letterLogs {
-		result = append(result, l.String())
-	}
-
-	for _, l := range digitLogs {
+	for _, l := range parsedLogs {
 		result = append(result, l.String())
 	}
 
@@ -79,6 +69,14 @@ func (b ByWords) Len() int {
 func (b ByWords) Less(i, j int) bool {
 	l1 := b[i]
 	l2 := b[j]
+
+	if l1.LogType < l2.LogType {
+		return true
+	}
+
+	if l1.LogType == Digit {
+		return false
+	}
 
 	if l1.Words == l2.Words {
 		return l1.Identifier < l2.Identifier
