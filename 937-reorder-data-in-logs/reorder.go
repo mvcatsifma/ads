@@ -1,26 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"regexp"
 	"sort"
 	"strings"
 )
 
+var re = regexp.MustCompile("^\\w* \\d")
+
 func reorderLogFiles(logs []string) []string {
-	var result []string
-	var parsedLogs []Log
-	for _, log := range logs {
-		parsedLogs = append(parsedLogs, Parse(log))
-	}
-
-	sort.Stable(ByContents(parsedLogs))
-
-	for _, l := range parsedLogs {
-		result = append(result, l.String())
-	}
-
-	return result
+	sort.Stable(ByContents(logs))
+	return logs
 }
 
 type LogType int
@@ -30,37 +20,7 @@ const (
 	Digit
 )
 
-type Log struct {
-	LogType    LogType
-	Identifier string
-	Words      string
-}
-
-func (l *Log) String() string {
-	return fmt.Sprintf("%s %s", l.Identifier, l.Words)
-}
-
-func Parse(log string) Log {
-	tokens := strings.SplitN(log, " ", 2)
-	identifier := tokens[0]
-	words := tokens[1]
-
-	re := regexp.MustCompile("\\d")
-	isDigit := re.MatchString(words)
-
-	logType := Letter
-	if isDigit {
-		logType = Digit
-	}
-
-	return Log{
-		Identifier: identifier,
-		LogType:    logType,
-		Words:      words,
-	}
-}
-
-type ByContents []Log
+type ByContents []string
 
 func (b ByContents) Len() int {
 	return len(b)
@@ -70,21 +30,44 @@ func (b ByContents) Less(i, j int) bool {
 	l1 := b[i]
 	l2 := b[j]
 
-	if l1.LogType < l2.LogType {
-		return true
-	}
+	logType1 := logType(l1)
 
-	if l1.LogType == Digit {
+	if logType1 == Digit {
 		return false
 	}
 
-	if l1.Words == l2.Words {
-		return l1.Identifier < l2.Identifier
+	logType2 := logType(l2)
+	if logType1 < logType2 {
+		return true
 	}
 
-	return l1.Words < l2.Words
+	id1, words1 := tokens(l1)
+	id2, words2 := tokens(l2)
+
+	if words1 == words2 {
+		return id1 < id2
+	}
+
+	return words1 < words2
 }
 
 func (b ByContents) Swap(i, j int) {
 	b[i], b[j] = b[j], b[i]
+}
+
+func tokens(log string) (string, string) {
+	tokens := strings.SplitN(log, " ", 2)
+
+	return tokens[0], tokens[1]
+}
+
+func logType(log string) LogType {
+	isDigit := re.MatchString(log)
+
+	logType := Letter
+	if isDigit {
+		logType = Digit
+	}
+
+	return logType
 }
