@@ -14,7 +14,7 @@ func reorderLogFiles(logs []string) []string {
 		parsedLogs = append(parsedLogs, Parse(log))
 	}
 
-	sort.Stable(ByWords(parsedLogs))
+	sort.Stable(ByContents(parsedLogs))
 
 	for _, l := range parsedLogs {
 		result = append(result, l.String())
@@ -60,13 +60,13 @@ func Parse(log string) Log {
 	}
 }
 
-type ByWords []Log
+type ByContents []Log
 
-func (b ByWords) Len() int {
+func (b ByContents) Len() int {
 	return len(b)
 }
 
-func (b ByWords) Less(i, j int) bool {
+func (b ByContents) Less(i, j int) bool {
 	l1 := b[i]
 	l2 := b[j]
 
@@ -85,6 +85,6 @@ func (b ByWords) Less(i, j int) bool {
 	return l1.Words < l2.Words
 }
 
-func (b ByWords) Swap(i, j int) {
+func (b ByContents) Swap(i, j int) {
 	b[i], b[j] = b[j], b[i]
 }
