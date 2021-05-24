@@ -88,3 +88,11 @@ func Test_Merge_4(t *testing.T) {
 		fmt.Println(x.Val)
 	}
 }
+
+func Test_Merge_5(t *testing.T) {
+	l := mergeTwoLists(nil, nil)
+
+	for x := l; x != nil; x = x.Next {
+		fmt.Println(x.Val)
+	}
+}
