@@ -31,7 +31,7 @@ func Test(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			actual := isPalindrome(test.in)
+			actual := isPalindrome2(test.in)
 
 			if actual != test.expected {
 				t.Errorf("expected: %t, got: %t\n", test.expected, actual)
