@@ -12,15 +12,11 @@ func climbStairs(n int) int {
 	}
 	dw = 0
 	steps = n
-	process([]int{})
+	process(0)
 	return dw
 }
 
-func process(arr []int) {
-	sum := 0
-	for _, v := range arr {
-		sum += v
-	}
+func process(sum int) {
 	if sum > steps {
 		return
 	}
@@ -29,6 +25,8 @@ func process(arr []int) {
 		return
 	}
 
-	process(append(arr, 1))
-	process(append(arr, 2))
+	sum1 := sum + 1
+	sum2 := sum + 2
+	process(sum1)
+	process(sum2)
 }
