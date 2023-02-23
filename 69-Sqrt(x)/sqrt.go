@@ -4,6 +4,7 @@ func main() {
 
 }
 
+// TODO: implement using binary search
 func mySqrt(x int) int {
 	var result int
 
