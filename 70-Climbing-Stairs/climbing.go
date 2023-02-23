@@ -4,29 +4,11 @@ var dw int
 var steps int
 
 func climbStairs(n int) int {
-	if n == 0 {
-		return 0
+	one, two := 1, 1
+	for i := 0; i < n-1; i++ {
+		temp := one
+		one = one + two
+		two = temp
 	}
-	if n == 1 {
-		return 1
-	}
-	dw = 0
-	steps = n
-	process(0)
-	return dw
-}
-
-func process(sum int) {
-	if sum > steps {
-		return
-	}
-	if sum == steps {
-		dw++
-		return
-	}
-
-	sum1 := sum + 1
-	sum2 := sum + 2
-	process(sum1)
-	process(sum2)
+	return one
 }

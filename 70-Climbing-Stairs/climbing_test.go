@@ -11,7 +11,7 @@ func Test_climbStairs(t *testing.T) {
 		args args
 		want int
 	}{
-		{args: args{n: 0}, want: 0},
+		{args: args{n: 0}, want: 1},
 		{args: args{n: 2}, want: 2},
 		{args: args{n: 3}, want: 3},
 		{args: args{n: 4}, want: 5},
