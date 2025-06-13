@@ -14,7 +14,7 @@ func numberOfSteps(num int) int {
 }
 
 func process(num int, step *int) {
-	if num == 0 {
+	if num == 0 { // base case
 		return
 	}
 
