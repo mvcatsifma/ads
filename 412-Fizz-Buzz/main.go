@@ -5,15 +5,17 @@ import "strconv"
 func fizzBuzz(n int) []string {
 	result := make([]string, n)
 	for i := 1; i <= n; i++ {
-		if i%3 == 0 && i%5 == 0 {
+		d3 := i%3 == 0
+		d5 := i%5 == 0
+		if d3 && d5 {
 			result[i-1] = "FizzBuzz"
 			continue
 		}
-		if i%3 == 0 {
+		if d3 {
 			result[i-1] = "Fizz"
 			continue
 		}
-		if i%5 == 0 {
+		if d5 {
 			result[i-1] = "Buzz"
 			continue
 		}
