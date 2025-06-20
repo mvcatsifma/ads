@@ -5,15 +5,14 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// todo: refactor to not use a map for intermediate storage
 func middleNode(head *ListNode) *ListNode {
-	m := make(map[int]*ListNode)
-	i := 0
-	for head != nil {
-		m[i] = head
-		head = head.Next
-		i++
+	var end = head
+	var middle = head
+
+	for end != nil && end.Next != nil {
+		end = end.Next.Next
+		middle = middle.Next
 	}
-	index := i / 2
-	return m[index]
+
+	return middle
 }
