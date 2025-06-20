@@ -1,13 +1,13 @@
 package main
 
 func twoSum(nums []int, target int) []int {
-	var numToIdx = make(map[int]int)
-	for idx2, num := range nums {
+	var m = make(map[int]int)
+	for i, num := range nums {
 		sub := target - num
-		if idx1, ok := numToIdx[sub]; ok {
-			return []int{idx1, idx2}
+		if j, ok := m[sub]; ok {
+			return []int{j, i}
 		}
-		numToIdx[num] = idx2
+		m[num] = i
 	}
 	return []int{}
 }
