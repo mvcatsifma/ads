@@ -1,19 +1,17 @@
 package main
 
-import (
-	"strings"
-)
-
 func canConstruct(ransomNote string, magazine string) bool {
-	if ransomNote == magazine {
-		return true
+	letters := make(map[rune]int)
+	for _, r := range magazine {
+		letters[r]++
 	}
-	for _, v := range ransomNote {
-		i := strings.Index(magazine, string(v))
-		if i == -1 {
+
+	for _, r := range ransomNote {
+		letters[r]--
+		if letters[r] < 0 {
 			return false
 		}
-		magazine = magazine[:i] + magazine[i+1:]
 	}
+
 	return true
 }
