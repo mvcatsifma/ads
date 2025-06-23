@@ -39,19 +39,20 @@ func topKFrequent(nums []int, topK int) []int {
 		counts[num]++
 	}
 
-	var pairs = make([][]int, 0, len(counts))
+	var buckets = make([][]int, len(nums)+1)
 	for num, freq := range counts {
-		pairs = append(pairs, []int{num, freq})
+		if buckets[freq] == nil {
+			buckets[freq] = make([]int, 0)
+		}
+		buckets[freq] = append(buckets[freq], num)
 	}
 
-	sort.Slice(pairs, func(i, j int) bool {
-		return pairs[i][1] > pairs[j][1] // sort by count
-	})
-
-	var result = make([]int, topK)
-	for i := 0; i < topK; i++ {
-		result[i] = pairs[i][0]
+	var result []int
+	for i := len(buckets) - 1; i > 0; i-- {
+		for _, num := range buckets[i] {
+			result = append(result, num)
+		}
 	}
 
-	return result
+	return result[:topK]
 }
