@@ -28,6 +28,13 @@ func TestEncodeDecode(t *testing.T) {
 			},
 			want: []string{"Hello"},
 		},
+		{
+			name: "case 3",
+			args: args{
+				strs: []string{"Hello", "Wor/:ld", "Nice", "To", "Meet", "You"},
+			},
+			want: []string{"Hello", "Wor/:ld", "Nice", "To", "Meet", "You"},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
