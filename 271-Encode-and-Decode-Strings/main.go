@@ -2,44 +2,77 @@ package main
 
 import (
 	"bytes"
-	"strings"
+	"log/slog"
+	"strconv"
 )
 
 type Codec struct {
 }
 
-// ### Escaping approach
-
 const delimiter string = "/:"
+
+func (c Codec) Decode(strs string) []string {
+	var result []string
+
+	for i := 0; i < len(strs)-1; i++ {
+		d := string(strs[i]) + string(strs[i+1])
+		var s string
+		if d == delimiter {
+			slog.Info("delimiter found")
+			i++
+			continue
+		} else {
+			s += string(strs[i])
+		}
+
+		slog.Info("string found")
+	}
+
+	return result
+}
 
 func (c Codec) Encode(strs []string) string {
 	var buf bytes.Buffer
 	for _, str := range strs {
-		str = strings.ReplaceAll(str, "/", "//")
-		buf.WriteString(str)
+		buf.WriteString(strconv.Itoa(len(str)))
 		buf.WriteString(delimiter)
+		buf.WriteString(str)
 	}
-
 	return buf.String()
 }
 
-func (c Codec) Decode(strs string) []string {
-	var result []string
-	var str string
-	for i := 0; i < len(strs); i++ {
-		if strs[i] == '/' && strs[i+1] == ':' {
-			result = append(result, str)
-			str = ""
-			i++
-		} else if strs[i] == '/' && strs[i+1] == '/' {
-			str += "/"
-			i++
-		} else {
-			str += string(strs[i])
-		}
-	}
-	return result
-}
+// ### Delimiter and escaping approach
+
+//const delimiter string = "/:"
+
+//func (c Codec) Encode(strs []string) string {
+//	var buf bytes.Buffer
+//	for _, str := range strs {
+//		str = strings.ReplaceAll(str, "/", "//")
+//		buf.WriteString(str)
+//		buf.WriteString(delimiter)
+//	}
+//
+//	return buf.String()
+//}
+
+//func (c Codec) Decode(strs string) []string {
+//	var result []string
+//	var str string
+//	for i := 0; i < len(strs); i++ {
+//		if strs[i] == '/' && strs[i+1] == ':' {
+//			result = append(result, str)
+//			str = ""
+//			i++
+//		} else if strs[i] == '/' && strs[i+1] == '/' {
+//			str += "/"
+//			i++
+//		} else {
+//			str += string(strs[i])
+//		}
+//	}
+//	return result
+//}
 
 // ### JSON Approach
 
