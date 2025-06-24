@@ -1,36 +1,38 @@
 package main
 
 import (
-	"fmt"
-	"sort"
+	"container/heap"
 )
 
-func main() {
-	nested := [][]int{
-		{3, 2},
-		{1, 4},
-		{5, 0},
-	}
+type pair struct {
+	num  int
+	freq int
+}
 
-	// Sort by first element
-	sort.Slice(nested, func(i, j int) bool {
-		return nested[i][0] < nested[j][0]
-	})
-	fmt.Printf("Sorted by first element: %v\n", nested)
+type pairHeap []pair
 
-	// Example 2: Sort by second element
-	sort.Slice(nested, func(i, j int) bool {
-		return nested[i][1] < nested[j][1]
-	})
-	fmt.Printf("Sorted by second element: %v\n", nested)
+func (p pairHeap) Len() int {
+	return len(p)
+}
 
-	// Example 3: Sort by sum of elements
-	sort.Slice(nested, func(i, j int) bool {
-		sumI := nested[i][0] + nested[i][1]
-		sumJ := nested[j][0] + nested[j][1]
-		return sumI < sumJ
-	})
-	fmt.Printf("Sorted by sum: %v\n", nested)
+func (p pairHeap) Less(i, j int) bool {
+	return p[i].freq > p[j].freq // max-heap!
+}
+
+func (p pairHeap) Swap(i, j int) {
+	p[i], p[j] = p[j], p[i]
+}
+
+func (p *pairHeap) Push(x any) {
+	*p = append(*p, x.(pair))
+}
+
+func (p *pairHeap) Pop() any {
+	old := *p         // store the underlying slice in a local variable
+	n := len(old)     // get the length of the slice
+	x := old[n-1]     // extract the last element
+	*p = old[0 : n-1] // shrink the slice by one element
+	return x          // return the value that was at the end of the slice
 }
 
 func topKFrequent(nums []int, topK int) []int {
@@ -39,20 +41,15 @@ func topKFrequent(nums []int, topK int) []int {
 		counts[num]++
 	}
 
-	var buckets = make([][]int, len(nums)+1)
+	pairHeap := &pairHeap{}
 	for num, freq := range counts {
-		if buckets[freq] == nil {
-			buckets[freq] = make([]int, 0)
-		}
-		buckets[freq] = append(buckets[freq], num)
+		heap.Push(pairHeap, pair{num, freq})
 	}
 
 	var result []int
-	for i := len(buckets) - 1; i > 0; i-- {
-		for _, num := range buckets[i] {
-			result = append(result, num)
-		}
+	for i := 0; i < topK; i++ {
+		result = append(result, heap.Pop(pairHeap).(pair).num)
 	}
 
-	return result[:topK]
+	return result
 }
