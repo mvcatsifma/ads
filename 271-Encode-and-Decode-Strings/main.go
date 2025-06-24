@@ -2,33 +2,31 @@ package main
 
 import (
 	"bytes"
-	"log/slog"
 	"strconv"
 )
 
 type Codec struct {
 }
 
-const delimiter string = "/:"
+// ### Chunked transfer encoding approach
+
+const delimiter string = "#"
 
 func (c Codec) Decode(strs string) []string {
-	var result []string
-
-	for i := 0; i < len(strs)-1; i++ {
-		d := string(strs[i]) + string(strs[i+1])
-		var s string
-		if d == delimiter {
-			slog.Info("delimiter found")
-			i++
-			continue
-		} else {
-			s += string(strs[i])
+	var res []string
+	i := 0
+	for i < len(strs) {
+		j := i
+		for string(strs[j]) != delimiter {
+			j++
 		}
-
-		slog.Info("string found")
+		length, _ := strconv.Atoi(strs[i:j])
+		j++ // move past delimiter
+		res = append(res, string(strs[j:j+length]))
+		i = j + length
 	}
 
-	return result
+	return res
 }
 
 func (c Codec) Encode(strs []string) string {
