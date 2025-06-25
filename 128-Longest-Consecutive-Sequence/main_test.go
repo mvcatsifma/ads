@@ -30,13 +30,6 @@ func Test_longestConsecutive(t *testing.T) {
 			args: args{
 				nums: []int{1, 0, 1, 2},
 			},
-			want: 2,
-		},
-		{
-			name: "case 4",
-			args: args{
-				nums: []int{1, 0, 1, 2},
-			},
 			want: 3,
 		},
 	}

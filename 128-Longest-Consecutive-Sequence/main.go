@@ -11,16 +11,23 @@ func main() {
 	fmt.Printf("%d\n", nums)
 }
 
-// TODO: use map[int]bool in order to de-duplicate the input.
 func longestConsecutive(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+
 	sort.Ints(nums)
 	seqs := make([][]int, 0)
 	seq := make([]int, 0)
-	prev := 0
-	for _, num := range nums {
-		if num-prev == 1 {
+	prev := nums[:1][0]
+	seq = append(seq, prev)
+	for _, num := range nums[1:] {
+		if num-prev == 0 { // skip duplicate
+			continue
+		}
+		if num-prev == 1 { // add to sequence
 			seq = append(seq, num)
-		} else {
+		} else { // start new sequence
 			seqs = append(seqs, seq)
 			seq = make([]int, 0)
 			seq = append(seq, num)
