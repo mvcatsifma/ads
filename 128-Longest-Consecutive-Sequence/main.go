@@ -9,11 +9,20 @@ func longestConsecutive(nums []int) int {
 		return 0
 	}
 
+	seqs := make([][]int, 0) // list of sequences
+	seq := make([]int, 0)    // the current sequence
+
+	var result int
+	var appendSeq = func(seq []int) {
+		if len(seq) > result {
+			result = len(seq)
+		}
+		seqs = append(seqs, seq)
+	}
+
 	// Sort the input array
 	sort.Ints(nums)
 
-	seqs := make([][]int, 0) // list of sequences
-	seq := make([]int, 0)    // the current sequence
 	var prev int
 	for i, num := range nums {
 		if i == 0 { // first element in the input array is always added to the first sequence
@@ -28,18 +37,13 @@ func longestConsecutive(nums []int) int {
 		case 1: // consecutive element
 			seq = append(seq, num)
 		default: // non-consecutive element, start a new sequence
-			seqs = append(seqs, seq)
+			appendSeq(seq)
 			seq = make([]int, 0)
 			seq = append(seq, num)
 		}
 		prev = num
 	}
-	seqs = append(seqs, seq) // add the last sequence to the sequences array
+	appendSeq(seq) // add the last sequence to the sequences array
 
-	// Sort the accumulated sequences.
-	sort.Slice(seqs, func(i, j int) bool {
-		return len(seqs[i]) > len(seqs[j])
-	})
-
-	return len(seqs[0]) // return the length of the longest sequence
+	return result // return the length of the result sequence
 }
