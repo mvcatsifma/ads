@@ -22,6 +22,9 @@ func isPalindrome(s string) bool {
 
 	j := l - 1
 	for i := 0; i < l-1; i++ {
+		if i == j {
+			break
+		}
 		if s[i] != s[j] {
 			return false
 		}
