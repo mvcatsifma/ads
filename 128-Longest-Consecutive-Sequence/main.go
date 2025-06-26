@@ -9,24 +9,21 @@ func longestConsecutive(nums []int) int {
 		return 0
 	}
 
-	seqs := make([][]int, 0) // list of sequences
-	seq := make([]int, 0)    // the current sequence
-
-	var result int
-	var appendSeq = func(seq []int) {
-		if len(seq) > result {
-			result = len(seq)
+	var longestStreak int
+	var updateLongestStreak = func(currentStreak int) {
+		if currentStreak > longestStreak {
+			longestStreak = currentStreak
 		}
-		seqs = append(seqs, seq)
 	}
 
 	// Sort the input array
 	sort.Ints(nums)
 
+	var currentStreak int
 	var prev int
 	for i, num := range nums {
-		if i == 0 { // first element in the input array is always added to the first sequence
-			seq = append(seq, num)
+		if i == 0 { // first element in the input array starts the first streak
+			currentStreak++
 			prev = num
 			continue
 		}
@@ -35,15 +32,14 @@ func longestConsecutive(nums []int) int {
 		case 0: // duplicate element
 			continue
 		case 1: // consecutive element
-			seq = append(seq, num)
-		default: // non-consecutive element, start a new sequence
-			appendSeq(seq)
-			seq = make([]int, 0)
-			seq = append(seq, num)
+			currentStreak++
+		default: // non-consecutive element, start a new streak
+			updateLongestStreak(currentStreak)
+			currentStreak = 1
 		}
 		prev = num
 	}
-	appendSeq(seq) // add the last sequence to the sequences array
+	updateLongestStreak(currentStreak) // don't forget to update for the last streak
 
-	return result // return the length of the result sequence
+	return longestStreak
 }
