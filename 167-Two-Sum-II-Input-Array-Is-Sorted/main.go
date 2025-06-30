@@ -1,15 +1,25 @@
 package main
 
 func twoSum(numbers []int, target int) []int {
-	m := make(map[int]int) // num -> index
-	for i, num := range numbers {
-		m[num] = i
-	}
+	start := 0
+	end := len(numbers) - 1
 
-	for i, n1 := range numbers {
-		n2 := target - n1 // we're looking for a second number so that n2+n1==target
-		if j, ok := m[n2]; ok {
-			return []int{i + 1, j + 1} // 1-indexed array
+	for {
+		if start == end {
+			break
+		}
+		n1 := numbers[start]
+		n2 := numbers[end]
+
+		sum := n1 + n2
+		if sum == target {
+			return []int{start + 1, end + 1}
+		}
+		if sum < target {
+			start++
+		}
+		if sum > target {
+			end--
 		}
 	}
 
