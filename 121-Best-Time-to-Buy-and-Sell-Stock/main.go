@@ -2,11 +2,17 @@ package main
 
 func maxProfit(prices []int) int {
 	var profit int
-	for i := 0; i <= len(prices)-1; i++ {
-		for j := i + 1; j <= len(prices)-1; j++ {
-			if prices[j] > prices[i] {
-				profit = max(profit, prices[j]-prices[i])
-			}
+	var lowest int
+	for i, price := range prices {
+		if i == 0 {
+			lowest = price
+			continue
+		}
+		if price < lowest {
+			lowest = price
+		}
+		if price-lowest > profit {
+			profit = price - lowest
 		}
 	}
 	return profit
