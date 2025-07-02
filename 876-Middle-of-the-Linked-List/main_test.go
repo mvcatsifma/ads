@@ -31,7 +31,7 @@ func Test_middleNode(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			head := BuildLinkedList(tt.args.nums)
+			head := buildLinkedList(tt.args.nums)
 			if got := middleNode(head).Val; !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("middleNode() = %v, want %v", got, tt.want)
 			}
@@ -39,9 +39,9 @@ func Test_middleNode(t *testing.T) {
 	}
 }
 
-// BuildLinkedList converts a slice of integers into a linked list
+// buildLinkedList converts a slice of integers into a linked list
 // and returns the head of the list
-func BuildLinkedList(nums []int) *ListNode {
+func buildLinkedList(nums []int) *ListNode {
 	// Handle empty input
 	if len(nums) == 0 {
 		return nil
