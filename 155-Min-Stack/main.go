@@ -24,7 +24,7 @@ func Constructor() MinStack {
 
 func (s *MinStack) Push(val int) {
 	s.stack = append(s.stack, val)
-	if len(s.minStack) == 0 || val < s.minStack[len(s.minStack)-1] {
+	if len(s.minStack) == 0 || val <= s.minStack[len(s.minStack)-1] {
 		s.minStack = append(s.minStack, val)
 	}
 }
@@ -32,13 +32,13 @@ func (s *MinStack) Push(val int) {
 func (s *MinStack) Pop() {
 	top := s.stack[len(s.stack)-1]
 	s.stack = s.stack[:len(s.stack)-1]
-	if len(s.minStack) > 0 && top == s.minStack[len(s.minStack)-1] {
+	if len(s.minStack) > 0 && s.minStack[len(s.minStack)-1] == top {
 		s.minStack = s.minStack[:len(s.minStack)-1]
 	}
 }
 
 func (s *MinStack) Top() int {
-	return s.stack[len(s.stack)-1]
+	return s.stack[(len(s.stack) - 1)]
 }
 
 func (s *MinStack) GetMin() int {
