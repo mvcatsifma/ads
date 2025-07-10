@@ -38,12 +38,15 @@ func (s *MinStack) Pop() {
 }
 
 func (s *MinStack) Top() int {
-	return s.stack[(len(s.stack) - 1)]
+	if len(s.stack) > 0 {
+		return s.stack[(len(s.stack) - 1)]
+	}
+	return -1
 }
 
 func (s *MinStack) GetMin() int {
 	if len(s.minStack) > 0 {
 		return s.minStack[len(s.minStack)-1]
 	}
-	return 0
+	return -1
 }
