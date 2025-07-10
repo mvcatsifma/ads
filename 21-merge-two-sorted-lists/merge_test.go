@@ -1,98 +1,67 @@
 package main
 
 import (
-	"fmt"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
-// l1 = [1,2,4], l2 = [1,3,4]
-var l1, l2 *ListNode
-
-// l3 = [1], l4 =[]
-var l3, l4 *ListNode
-
-// l5 = [2], l6 = [1]
-var l5, l6 *ListNode
-
-func init() {
-	l12 := &ListNode{
-		Val:  4,
-		Next: nil,
+func Test_mergeTwoLists(t *testing.T) {
+	type args struct {
+		list1 []int
+		list2 []int
 	}
-	l11 := &ListNode{
-		Val:  2,
-		Next: l12,
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "case 1",
+			args: args{
+				list1: []int{1, 2, 4},
+				list2: []int{1, 3, 4},
+			},
+			want: []int{1, 1, 2, 3, 4, 4},
+		},
+		{
+			name: "case 2",
+			args: args{
+				list1: []int{},
+				list2: []int{0},
+			},
+			want: []int{0},
+		},
 	}
-	l1 = &ListNode{
-		Val:  1,
-		Next: l11,
-	}
-
-	l22 := &ListNode{
-		Val:  4,
-		Next: nil,
-	}
-	l21 := &ListNode{
-		Val:  3,
-		Next: l22,
-	}
-	l2 = &ListNode{
-		Val:  1,
-		Next: l21,
-	}
-
-	l3 = &ListNode{
-		Val: 1,
-		Next: nil,
-	}
-
-	l5 = &ListNode{
-		Val:  2,
-		Next: nil,
-	}
-
-	l6 = &ListNode{
-		Val:  1,
-		Next: nil,
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			nodeList1 := buildLinkedList(tt.args.list1)
+			nodeList2 := buildLinkedList(tt.args.list2)
+			wantList := buildLinkedList(tt.want)
+			if got := mergeTwoLists(nodeList1, nodeList2); !cmp.Equal(got, wantList) {
+				t.Errorf("mergeTwoLists() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
 
-func Test_Merge_1(t *testing.T) {
-	l := mergeTwoLists(l1, l2)
-
-	for x := l; x != nil; x = x.Next {
-		fmt.Println(x.Val)
+// buildLinkedList converts a slice of integers into a linked list
+// and returns the head of the list
+func buildLinkedList(nums []int) *ListNode {
+	// Handle empty input
+	if len(nums) == 0 {
+		return nil
 	}
-}
 
-func Test_Merge_2(t *testing.T) {
-	l := mergeTwoLists(l3, nil)
+	// Create head node
+	head := &ListNode{Val: nums[0]}
+	current := head
 
-	for x := l; x != nil; x = x.Next {
-		fmt.Println(x.Val)
+	// Iterate through remaining numbers
+	for i := 1; i < len(nums); i++ {
+		current.Next = &ListNode{Val: nums[i]}
+		current = current.Next
 	}
-}
 
-func Test_Merge_3(t *testing.T) {
-	l := mergeTwoLists(l5, l6)
-
-	for x := l; x != nil; x = x.Next {
-		fmt.Println(x.Val)
-	}
-}
-
-func Test_Merge_4(t *testing.T) {
-	l := mergeTwoLists(l6, l5)
-
-	for x := l; x != nil; x = x.Next {
-		fmt.Println(x.Val)
-	}
-}
-
-func Test_Merge_5(t *testing.T) {
-	l := mergeTwoLists(nil, nil)
-
-	for x := l; x != nil; x = x.Next {
-		fmt.Println(x.Val)
-	}
+	return head
 }

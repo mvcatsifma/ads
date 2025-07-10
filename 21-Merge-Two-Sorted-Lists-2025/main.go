@@ -5,28 +5,27 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func (l *ListNode) hasNext() bool {
-	return l.Next != nil
-}
-
 func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
+	head := &ListNode{}
+	tail := head
+
+	for l1 != nil && l2 != nil {
+		if l1.Val < l2.Val {
+			tail.Next = l1
+			l1 = l1.Next
+		} else {
+			tail.Next = l2
+			l2 = l2.Next
+		}
+
+		tail = tail.Next
+	}
+
 	if l1 == nil {
-		return l2
-	}
-	if l2 == nil {
-		return l1
-	}
-	var head *ListNode
-
-	if l1.Val < l2.Val {
-		head = l1
-		l1 = l1.Next
+		tail.Next = l2
 	} else {
-		head = l2
-		l2 = l2.Next
+		tail.Next = l1
 	}
 
-	head.Next = mergeTwoLists(l1, l2)
-
-	return head
+	return head.Next
 }
