@@ -1,8 +1,9 @@
 package main
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func Test_threeSum(t *testing.T) {
@@ -20,8 +21,8 @@ func Test_threeSum(t *testing.T) {
 				nums: []int{-1, 0, 1, 2, -1, -4},
 			},
 			want: [][]int{
-				{-1, -1, 2},
 				{-1, 0, 1},
+				{-1, -1, 2},
 			},
 		},
 		{
@@ -43,7 +44,7 @@ func Test_threeSum(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := threeSum(tt.args.nums); !reflect.DeepEqual(got, tt.want) {
+			if got := threeSum(tt.args.nums); !cmp.Equal(got, tt.want) {
 				t.Errorf("threeSum() = %v, want %v", got, tt.want)
 			}
 		})

@@ -1,38 +1,39 @@
 package main
 
-import "slices"
+import (
+	"fmt"
+	"sort"
+)
 
 func threeSum(nums []int) [][]int {
-	var result [][]int
-	slices.Sort(nums)
-	for i := 0; i < len(nums)-1; i++ {
-		if nums[i] > 0 {
-			break
-		}
-		if i == 0 || nums[i] != nums[i-1] {
-			result = append(result, twoSum(nums, i))
+	triplets := make(map[string][]int)
+	dups := make(map[int]bool)
+	seen := make(map[int]int)
+
+	for i := 0; i < len(nums); i++ {
+		if ok := dups[nums[i]]; !ok {
+			dups[nums[i]] = true
+			for j := i + 1; j < len(nums); j++ {
+				complement := -nums[i] - nums[j]
+				if v, ok := seen[complement]; ok && v == i {
+					triplet := []int{nums[i], nums[j], complement}
+					sort.Ints(triplet)
+					key := sliceToString(triplet)
+					triplets[key] = triplet
+
+				}
+				seen[nums[j]] = i
+			}
 		}
 	}
 
-	return result
+	res := make([][]int, 0)
+	for _, v := range triplets {
+		res = append(res, v)
+	}
+	return res
 }
 
-func twoSum(nums []int, i int) []int {
-	lo := i + 1
-	hi := len(nums) - 1
-
-	for lo < hi {
-		sum := nums[i] + nums[lo] + nums[hi]
-		if sum == 0 {
-			return []int{nums[i], nums[lo], nums[hi]}
-		}
-		if sum < 0 {
-			lo++
-		}
-		if sum > 0 {
-			hi--
-		}
-	}
-
-	return []int{}
+func sliceToString(s []int) string {
+	return fmt.Sprint(s)
 }
