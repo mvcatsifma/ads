@@ -1,0 +1,5 @@
+module remove-nth-node-from-end-of-list
+
+go 1.23.8
+
+require github.com/google/go-cmp v0.7.0
