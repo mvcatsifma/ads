@@ -5,15 +5,15 @@ func hasCycle(head *ListNode) bool {
 		return false
 	}
 
-	nodeToIdx := make(map[*ListNode]bool)
-	for {
-		nodeToIdx[head] = true
-		if _, ok := nodeToIdx[head.Next]; ok {
+	f := head
+	s := head
+
+	for s.Next != nil && f.Next != nil && f.Next.Next != nil {
+		s = s.Next
+		f = f.Next.Next
+
+		if s == f {
 			return true
-		}
-		head = head.Next
-		if head == nil {
-			break
 		}
 	}
 
