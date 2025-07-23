@@ -4,28 +4,41 @@ func isPalindrome(head *ListNode) bool {
 	if head == nil {
 		return false
 	}
+	slow := head
+	fast := head
 
-	var nodes []*ListNode
-	for {
-		nodes = append(nodes, head)
-		if head.Next == nil {
-			break
-		}
-		head = head.Next
+	for fast.Next != nil && fast.Next.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
 	}
 
-	i := 0
-	j := len(nodes) - 1
+	head2 := slow.Next
+	head2 = reverseLinkedList(head2)
 
-	for i <= j {
-		if nodes[i].Val != nodes[j].Val {
+	for {
+		if head == nil || head2 == nil {
+			break
+		}
+		if head.Val != head2.Val {
 			return false
 		}
-		i++
-		j--
+		head = head.Next
+		head2 = head2.Next
 	}
 
 	return true
+}
+
+func reverseLinkedList(head *ListNode) *ListNode {
+	var prev *ListNode
+	cur := head
+	for cur != nil {
+		next := cur.Next
+		cur.Next = prev
+		prev = cur
+		cur = next
+	}
+	return prev
 }
 
 type ListNode struct {
