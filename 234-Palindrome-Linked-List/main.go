@@ -1,6 +1,8 @@
 package main
 
-func isPalindrome(head *ListNode) bool {
+import lib "leetcode-lib"
+
+func isPalindrome(head *lib.ListNode) bool {
 	if head == nil {
 		return false
 	}
@@ -29,8 +31,8 @@ func isPalindrome(head *ListNode) bool {
 	return true
 }
 
-func reverseLinkedList(head *ListNode) *ListNode {
-	var prev *ListNode
+func reverseLinkedList(head *lib.ListNode) *lib.ListNode {
+	var prev *lib.ListNode
 	cur := head
 	for cur != nil {
 		next := cur.Next
@@ -39,9 +41,4 @@ func reverseLinkedList(head *ListNode) *ListNode {
 		cur = next
 	}
 	return prev
-}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
 }

@@ -1,6 +1,8 @@
 package main
 
-func hasCycle(head *ListNode) bool {
+import lib "leetcode-lib"
+
+func hasCycle(head *lib.ListNode) bool {
 	if head == nil {
 		return false
 	}
@@ -18,9 +20,4 @@ func hasCycle(head *ListNode) bool {
 	}
 
 	return false
-}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
 }

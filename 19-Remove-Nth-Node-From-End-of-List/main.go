@@ -1,7 +1,9 @@
 package main
 
-func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	dummy := &ListNode{}
+import lib "leetcode-lib"
+
+func removeNthFromEnd(head *lib.ListNode, n int) *lib.ListNode {
+	dummy := &lib.ListNode{}
 	dummy.Next = head
 	length := 0
 	first := head
@@ -17,9 +19,4 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	}
 	first.Next = first.Next.Next
 	return dummy.Next
-}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
 }

@@ -1,6 +1,8 @@
 package main
 
-func frequenciesOfElements(head *ListNode) *ListNode {
+import lib "leetcode-lib"
+
+func frequenciesOfElements(head *lib.ListNode) *lib.ListNode {
 	if head == nil {
 		return nil
 	}
@@ -14,17 +16,12 @@ func frequenciesOfElements(head *ListNode) *ListNode {
 	}
 
 	// Phase 2: O(k) time, O(k) space
-	dummy := &ListNode{}
+	dummy := &lib.ListNode{}
 	curr = dummy
 	for _, v := range freqs { // Random order is fine!
-		curr.Next = &ListNode{Val: v}
+		curr.Next = &lib.ListNode{Val: v}
 		curr = curr.Next
 	}
 
 	return dummy.Next
-}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
 }

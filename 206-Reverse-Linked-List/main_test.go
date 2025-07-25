@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	lib "leetcode-lib"
 )
 
 func Test_reverseList(t *testing.T) {
@@ -39,32 +40,11 @@ func Test_reverseList(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			head := buildLinkedList(tt.args.nums)
-			want := buildLinkedList(tt.want)
+			head := lib.CreateLinkedList(tt.args.nums)
+			want := lib.CreateLinkedList(tt.want)
 			if got := reverseList(head); !cmp.Equal(got, want) {
 				t.Errorf("reverseList() = %v, want %v", got, tt.want)
 			}
 		})
 	}
-}
-
-// buildLinkedList converts a slice of integers into a linked list
-// and returns the head of the list
-func buildLinkedList(nums []int) *ListNode {
-	// Handle empty input
-	if len(nums) == 0 {
-		return nil
-	}
-
-	// Create head node
-	head := &ListNode{Val: nums[0]}
-	current := head
-
-	// Iterate through remaining numbers
-	for i := 1; i < len(nums); i++ {
-		current.Next = &ListNode{Val: nums[i]}
-		current = current.Next
-	}
-
-	return head
 }

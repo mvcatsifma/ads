@@ -1,6 +1,8 @@
 package main
 
-func removeElements(head *ListNode, val int) *ListNode {
+import lib "leetcode-lib"
+
+func removeElements(head *lib.ListNode, val int) *lib.ListNode {
 	for head != nil && head.Val == val {
 		head = head.Next
 	}
@@ -14,9 +16,4 @@ func removeElements(head *ListNode, val int) *ListNode {
 		}
 	}
 	return head
-}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
 }

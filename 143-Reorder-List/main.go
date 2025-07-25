@@ -1,6 +1,8 @@
 package main
 
-func reorderList(head *ListNode) {
+import lib "leetcode-lib"
+
+func reorderList(head *lib.ListNode) {
 	if head == nil || head.Next == nil {
 		return
 	}
@@ -12,8 +14,8 @@ func reorderList(head *ListNode) {
 
 	c1 := head
 	c2 := newHead
-	var f1 *ListNode
-	var f2 *ListNode
+	var f1 *lib.ListNode
+	var f2 *lib.ListNode
 
 	for c1 != nil && c2 != nil {
 		f1 = c1.Next
@@ -27,8 +29,8 @@ func reorderList(head *ListNode) {
 	}
 }
 
-func reverseList(head *ListNode) *ListNode {
-	var prev *ListNode
+func reverseList(head *lib.ListNode) *lib.ListNode {
+	var prev *lib.ListNode
 	cur := head
 	for cur != nil {
 		next := cur.Next
@@ -39,7 +41,7 @@ func reverseList(head *ListNode) *ListNode {
 	return prev
 }
 
-func midNode(head *ListNode) *ListNode {
+func midNode(head *lib.ListNode) *lib.ListNode {
 	slow := head
 	fast := head
 
@@ -49,40 +51,4 @@ func midNode(head *ListNode) *ListNode {
 	}
 
 	return slow
-}
-
-//func reorderList(head *ListNode) {
-//	if head == nil {
-//		return
-//	}
-//
-//	i := 0
-//	nodes := make(map[int]*ListNode)
-//	for {
-//		nodes[i] = head
-//		if head.Next == nil {
-//			break
-//		}
-//		head = head.Next
-//		i++
-//	}
-//
-//	head0 := &ListNode{}
-//	current := head0
-//	mid := i / 2
-//	l := 0
-//	for m := i; m >= mid; m-- {
-//		current.Next = nodes[l]
-//		current.Next.Next = nodes[m]
-//		current = current.Next.Next
-//		l++
-//	}
-//
-//	current.Next = nil
-//	head = head0.Next
-//}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
 }

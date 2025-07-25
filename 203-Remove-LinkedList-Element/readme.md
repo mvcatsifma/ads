@@ -2,3 +2,6 @@
 
 https://leetcode.com/problems/remove-linked-list-elements/description/
 
+TODO:
+- benchmark tests
+- algorithm analysis

@@ -1,12 +1,9 @@
 package main
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+import lib "leetcode-lib"
 
-func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
-	head := &ListNode{}
+func mergeTwoLists(l1 *lib.ListNode, l2 *lib.ListNode) *lib.ListNode {
+	head := &lib.ListNode{}
 	tail := head
 
 	for l1 != nil && l2 != nil {

@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"testing"
+
+	lib "leetcode-lib"
 )
 
 func BenchmarkIsPalindrome(b *testing.B) {
@@ -21,7 +23,7 @@ func BenchmarkIsPalindrome(b *testing.B) {
 	for _, tc := range testCases {
 		// Create a sub-benchmark for each test case
 		b.Run(fmt.Sprintf("Size_%s", tc.name), func(b *testing.B) {
-			list := createLinkedList(tc.values)
+			list := lib.CreateLinkedList(tc.values)
 			b.ResetTimer()
 			b.ReportAllocs()
 

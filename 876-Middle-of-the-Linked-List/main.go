@@ -1,11 +1,8 @@
 package main
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+import lib "leetcode-lib"
 
-func middleNode(head *ListNode) *ListNode {
+func middleNode(head *lib.ListNode) *lib.ListNode {
 	var end = head
 	var middle = head
 

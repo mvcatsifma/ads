@@ -1,12 +1,9 @@
 package main
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+import lib "leetcode-lib"
 
-func reverseList(head *ListNode) *ListNode {
-	var prev *ListNode
+func reverseList(head *lib.ListNode) *lib.ListNode {
+	var prev *lib.ListNode
 	cur := head
 	for cur != nil {
 		next := cur.Next

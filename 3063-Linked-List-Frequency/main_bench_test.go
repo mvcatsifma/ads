@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 	"testing"
+
+	lib "leetcode-lib"
 )
 
 func BenchmarkFrequenciesOfElements(b *testing.B) {
@@ -11,7 +12,7 @@ func BenchmarkFrequenciesOfElements(b *testing.B) {
 
 	for _, size := range sizes {
 		b.Run(fmt.Sprintf("size_%d", size), func(b *testing.B) {
-			list := buildLinkedListWithSize(size)
+			list := lib.CreateLinkedListWithSize(size, false)
 			b.ResetTimer()
 			b.ReportAllocs() // Added allocation reporting for all sizes
 
@@ -20,18 +21,4 @@ func BenchmarkFrequenciesOfElements(b *testing.B) {
 			}
 		})
 	}
-}
-
-func buildLinkedListWithSize(size int) *ListNode {
-	if size <= 0 {
-		return nil
-	}
-
-	dummy := &ListNode{}
-	curr := dummy
-	for i := 0; i < size; i++ {
-		curr.Next = &ListNode{Val: rand.Intn(1000)}
-		curr = curr.Next
-	}
-	return dummy.Next
 }

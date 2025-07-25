@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"testing"
+
+	lib "leetcode-lib"
 )
 
 func BenchmarkRemoveNthFromEnd(b *testing.B) {
@@ -20,37 +22,10 @@ func BenchmarkRemoveNthFromEnd(b *testing.B) {
 
 				for i := 0; i < b.N; i++ {
 					// Create fresh list for each iteration
-					list := createLinkedListWithSize(size, false)
+					list := lib.CreateLinkedListWithSize(size, false)
 					removeNthFromEnd(list, n)
 				}
 			})
 		}
 	}
-}
-
-func createLinkedListWithSize(size int, withCycle bool) *ListNode {
-	if size == 0 {
-		return nil
-	}
-
-	head := &ListNode{Val: 0}
-	current := head
-	var cyclePoint *ListNode
-
-	// Create the list
-	for i := 1; i < size; i++ {
-		current.Next = &ListNode{Val: i}
-		current = current.Next
-		// Store middle node for creating cycle
-		if i == size/2 {
-			cyclePoint = current
-		}
-	}
-
-	// Create cycle if requested
-	if withCycle {
-		current.Next = cyclePoint
-	}
-
-	return head
 }

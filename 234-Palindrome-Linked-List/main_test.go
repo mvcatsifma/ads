@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	lib "leetcode-lib"
 )
 
 func Test_isPalindrome(t *testing.T) {
@@ -53,28 +54,12 @@ func Test_isPalindrome(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			head := createLinkedList(tt.args.nums)
+			head := lib.CreateLinkedList(tt.args.nums)
 			if got := isPalindrome(head); got != tt.want {
 				t.Errorf("isPalindrome() = %v, want %v", got, tt.want)
 			}
 		})
 	}
-}
-
-func createLinkedList(nums []int) *ListNode {
-	if len(nums) == 0 {
-		return nil
-	}
-
-	head := &ListNode{Val: nums[0]}
-	current := head
-
-	for i := 1; i < len(nums); i++ {
-		current.Next = &ListNode{Val: nums[i]}
-		current = current.Next
-	}
-
-	return head
 }
 
 func Test_reverseLinkedList(t *testing.T) {
@@ -96,8 +81,8 @@ func Test_reverseLinkedList(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			head := createLinkedList(tt.args.nums)
-			want := createLinkedList(tt.want)
+			head := lib.CreateLinkedList(tt.args.nums)
+			want := lib.CreateLinkedList(tt.want)
 			if got := reverseLinkedList(head); !cmp.Equal(got, want) {
 				t.Errorf("reverseLinkedList() = %v, want %v", got, tt.want)
 			}

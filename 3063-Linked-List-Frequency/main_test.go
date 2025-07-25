@@ -5,23 +5,8 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	lib "leetcode-lib"
 )
-
-func buildLinkedList(nums []int) *ListNode {
-	if len(nums) == 0 {
-		return nil
-	}
-
-	head := &ListNode{Val: nums[0]}
-	current := head
-
-	for i := 1; i < len(nums); i++ {
-		current.Next = &ListNode{Val: nums[i]}
-		current = current.Next
-	}
-
-	return head
-}
 
 func Test_frequenciesOfElements(t *testing.T) {
 	type args struct {
@@ -69,7 +54,7 @@ func Test_frequenciesOfElements(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			head := buildLinkedList(tt.args.nums)
+			head := lib.CreateLinkedList(tt.args.nums)
 			got := toIntSlice(frequenciesOfElements(head))
 			if !compareSlicesUnordered(got, tt.want) {
 				t.Errorf("frequenciesOfElements() = %v, want %v", got, tt.want)
@@ -78,7 +63,7 @@ func Test_frequenciesOfElements(t *testing.T) {
 	}
 }
 
-func toIntSlice(head *ListNode) []int {
+func toIntSlice(head *lib.ListNode) []int {
 	var result []int
 	curr := head
 	for curr != nil {

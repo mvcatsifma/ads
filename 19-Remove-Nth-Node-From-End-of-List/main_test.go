@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	lib "leetcode-lib"
 )
 
 func Test_removeNthFromEnd(t *testing.T) {
@@ -51,27 +52,11 @@ func Test_removeNthFromEnd(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			head := buildLinkedList(tt.args.head)
-			want := buildLinkedList(tt.want)
+			head := lib.CreateLinkedList(tt.args.head)
+			want := lib.CreateLinkedList(tt.want)
 			if got := removeNthFromEnd(head, tt.args.n); !cmp.Equal(got, want) {
 				t.Errorf("removeNthFromEnd() = %v, want %v", got, tt.want)
 			}
 		})
 	}
-}
-
-func buildLinkedList(nums []int) *ListNode {
-	if len(nums) == 0 {
-		return nil
-	}
-
-	head := &ListNode{Val: nums[0]}
-	current := head
-
-	for i := 1; i < len(nums); i++ {
-		current.Next = &ListNode{Val: nums[i]}
-		current = current.Next
-	}
-
-	return head
 }

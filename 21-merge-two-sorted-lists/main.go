@@ -1,8 +1,9 @@
 package main
 
-// TODO: implement using recursion.
-func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
-	result := &ListNode{} // auxiliary linked list
+import lib "leetcode-lib"
+
+func mergeTwoLists(l1 *lib.ListNode, l2 *lib.ListNode) *lib.ListNode {
+	result := &lib.ListNode{} // auxiliary linked list
 	if l1 == nil && l2 == nil {
 		return nil // nothing to do here
 	}
@@ -25,17 +26,8 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 			result.Val = l2.Val
 			l2 = l2.Next
 		}
-		result.Next = &ListNode{}
+		result.Next = &lib.ListNode{}
 		result = result.Next // proceed cursor
 	}
 	return first
-}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func (l *ListNode) hasNext() bool {
-	return l.Next != nil
 }

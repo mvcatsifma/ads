@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"testing"
+
+	lib "leetcode-lib"
 )
 
 func Benchmark_reorderList(b *testing.B) {
@@ -20,24 +22,9 @@ func Benchmark_reorderList(b *testing.B) {
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
 				// Create fresh list for each iteration
-				list := createLinkedListFromNums(nums, -1)
+				list := lib.CreateLinkedListFromNums(nums, -1)
 				reorderList(list)
 			}
 		})
 	}
-}
-
-// Helper function if not already defined
-func createLinkedListFromNums(nums []int, pos int) *ListNode {
-	if len(nums) == 0 {
-		return nil
-	}
-
-	head := &ListNode{Val: nums[0]}
-	current := head
-	for i := 1; i < len(nums); i++ {
-		current.Next = &ListNode{Val: nums[i]}
-		current = current.Next
-	}
-	return head
 }
