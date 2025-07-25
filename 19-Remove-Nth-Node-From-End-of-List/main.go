@@ -1,32 +1,22 @@
 package main
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	if n == 0 {
-		return head
+	dummy := &ListNode{}
+	dummy.Next = head
+	length := 0
+	first := head
+	for first != nil {
+		length++
+		first = first.Next
 	}
-
-	h1 := head
-	h2 := head
-
 	i := 0
-	for i < n-1 && h2.Next != nil {
-		h2 = h2.Next
+	first = dummy
+	for i != length-n {
 		i++
+		first = first.Next
 	}
-
-	var prev *ListNode
-	for h2.Next != nil {
-		prev = h1
-		h1 = h1.Next
-		h2 = h2.Next
-	}
-
-	if prev != nil {
-		prev.Next = h1.Next
-		return head
-	}
-
-	return nil
+	first.Next = first.Next.Next
+	return dummy.Next
 }
 
 type ListNode struct {
