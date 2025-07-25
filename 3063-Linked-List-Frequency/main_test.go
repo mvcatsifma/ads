@@ -1,6 +1,7 @@
 package main
 
 import (
+	"slices"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -69,10 +70,36 @@ func Test_frequenciesOfElements(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			head := buildLinkedList(tt.args.nums)
-			want := buildLinkedList(tt.want)
-			if got := frequenciesOfElements(head); !cmp.Equal(got, want) {
+			got := toIntSlice(frequenciesOfElements(head))
+			if !compareSlicesUnordered(got, tt.want) {
 				t.Errorf("frequenciesOfElements() = %v, want %v", got, tt.want)
 			}
 		})
 	}
+}
+
+func toIntSlice(head *ListNode) []int {
+	var result []int
+	curr := head
+	for curr != nil {
+		result = append(result, curr.Val)
+		curr = curr.Next
+	}
+	return result
+}
+
+func compareSlicesUnordered(a, b []int) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	if a == nil && b == nil {
+		return true
+	}
+
+	aCopy := slices.Clone(a)
+	bCopy := slices.Clone(b)
+
+	slices.Sort(aCopy)
+	slices.Sort(bCopy)
+	return cmp.Equal(aCopy, bCopy)
 }

@@ -1,31 +1,23 @@
 package main
 
-import "sort"
-
 func frequenciesOfElements(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
 
-	freqs := make([]int, 10e5)
-	for {
-		freqs[head.Val]++
-		if head.Next == nil {
-			break
-		}
-		head = head.Next
+	// Phase 1: O(n) time, O(k) space
+	freqs := make(map[int]int)
+	curr := head
+	for curr != nil {
+		freqs[curr.Val]++ // Count frequencies
+		curr = curr.Next
 	}
 
-	sort.Ints(freqs)
-
+	// Phase 2: O(k) time, O(k) space
 	dummy := &ListNode{}
-	curr := dummy
-	for i := len(freqs) - 1; i >= 0; i-- {
-		freq := freqs[i]
-		if freq == 0 {
-			break
-		}
-		curr.Next = &ListNode{Val: freq}
+	curr = dummy
+	for _, v := range freqs { // Random order is fine!
+		curr.Next = &ListNode{Val: v}
 		curr = curr.Next
 	}
 

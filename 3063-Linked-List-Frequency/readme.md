@@ -48,3 +48,28 @@ This solution needs optimization primarily in:
 1. Memory allocation (reduce fixed size)
 2. Sorting efficiency (avoid sorting zeros)
 3. Loop structure (cleaner traversal)
+
+## Optimized solution: Hash Map Frequency Counter with Unordered Output 
+
+This solution implements a frequency counter for linked list elements using a two-phase approach. The first phase uses a hash map to count occurrences of each value in O(n) time. The second phase leverages Go's random map iteration to build a new linked list containing just the frequencies, where order doesn't matter.
+
+Key Features:
+1. Single pass counting with hash map
+2. Direct frequency list construction
+3. Takes advantage of map's random iteration
+4. Minimal memory footprint
+5. No sorting required
+
+Complexity:
+- Time: O(n) - one pass through input list
+- Space: O(k) - where k is number of unique values
+- Memory: Single map allocation
+
+Perfect for scenarios where:
+- Single pass counting with hash map
+- Direct frequency list construction
+- Takes advantage of map's random iteration
+- Minimal memory footprint
+- No sorting required
+
+The solution achieves optimal efficiency by avoiding unnecessary operations like sorting or additional data structure transformations.
