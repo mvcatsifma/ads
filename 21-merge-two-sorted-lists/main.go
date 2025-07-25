@@ -1,6 +1,6 @@
-package main
+package p21
 
-import lib "leetcode-lib"
+import "leetcode/lib"
 
 func mergeTwoLists(l1 *lib.ListNode, l2 *lib.ListNode) *lib.ListNode {
 	result := &lib.ListNode{} // auxiliary linked list

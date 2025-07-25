@@ -1,4 +1,4 @@
-package main
+package p20_2025
 
 const (
 	LeftBracket  = '['

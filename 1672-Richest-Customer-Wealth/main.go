@@ -1,8 +1,4 @@
-package main
-
-func main() {
-
-}
+package p1672
 
 func maximumWealth(accounts [][]int) int {
 	var result int

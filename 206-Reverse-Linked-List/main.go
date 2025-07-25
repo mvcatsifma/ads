@@ -1,6 +1,6 @@
-package main
+package p206
 
-import lib "leetcode-lib"
+import "leetcode/lib"
 
 func reverseList(head *lib.ListNode) *lib.ListNode {
 	var prev *lib.ListNode

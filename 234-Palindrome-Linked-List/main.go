@@ -1,6 +1,6 @@
-package main
+package p234
 
-import lib "leetcode-lib"
+import lib "leetcode/lib"
 
 func isPalindrome(head *lib.ListNode) bool {
 	if head == nil {

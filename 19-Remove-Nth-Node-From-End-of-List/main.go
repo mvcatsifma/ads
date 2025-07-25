@@ -1,6 +1,6 @@
-package main
+package p19
 
-import lib "leetcode-lib"
+import "leetcode/lib"
 
 func removeNthFromEnd(head *lib.ListNode, n int) *lib.ListNode {
 	dummy := &lib.ListNode{}

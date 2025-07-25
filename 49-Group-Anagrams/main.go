@@ -1,4 +1,4 @@
-package main
+package p49
 
 import (
 	"sort"

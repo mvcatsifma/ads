@@ -1,11 +1,11 @@
-package main
+package p3063
 
 import (
 	"slices"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	lib "leetcode-lib"
+	lib "leetcode/lib"
 )
 
 func Test_frequenciesOfElements(t *testing.T) {

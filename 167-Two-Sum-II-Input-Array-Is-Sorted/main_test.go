@@ -1,4 +1,4 @@
-package main
+package p167
 
 import (
 	"reflect"

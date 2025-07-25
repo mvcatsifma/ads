@@ -1,6 +1,6 @@
-package main
+package p141
 
-import lib "leetcode-lib"
+import "leetcode/lib"
 
 func hasCycle(head *lib.ListNode) bool {
 	if head == nil {

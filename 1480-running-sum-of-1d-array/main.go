@@ -1,8 +1,4 @@
-package main
-
-func main() {
-
-}
+package p1480
 
 func runningSum(nums []int) []int {
 	var result []int

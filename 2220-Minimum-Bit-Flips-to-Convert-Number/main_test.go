@@ -1,4 +1,4 @@
-package main
+package p2220
 
 import "testing"
 

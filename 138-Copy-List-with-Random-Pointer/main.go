@@ -1,4 +1,4 @@
-package copyListWithRandomPointer
+package p138
 
 func copyRandomList(head *Node) *Node {
 	if head == nil {

@@ -1,4 +1,4 @@
-package main
+package p1480
 
 import (
 	"reflect"

@@ -1,10 +1,10 @@
-package main
+package p3063
 
 import (
 	"fmt"
 	"testing"
 
-	lib "leetcode-lib"
+	lib "leetcode/lib"
 )
 
 func BenchmarkFrequenciesOfElements(b *testing.B) {

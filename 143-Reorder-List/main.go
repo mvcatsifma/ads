@@ -1,6 +1,6 @@
-package main
+package p143
 
-import lib "leetcode-lib"
+import "leetcode/lib"
 
 func reorderList(head *lib.ListNode) {
 	if head == nil || head.Next == nil {

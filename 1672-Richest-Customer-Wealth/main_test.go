@@ -1,4 +1,4 @@
-package main
+package p1672
 
 import "testing"
 

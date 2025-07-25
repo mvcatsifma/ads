@@ -1,4 +1,4 @@
-package main
+package p217
 
 func containsDuplicate(nums []int) bool {
 	m := make(map[int]bool)

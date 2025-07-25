@@ -1,6 +1,6 @@
-package main
+package p3063
 
-import lib "leetcode-lib"
+import lib "leetcode/lib"
 
 func frequenciesOfElements(head *lib.ListNode) *lib.ListNode {
 	if head == nil {

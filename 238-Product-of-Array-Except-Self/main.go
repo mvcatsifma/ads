@@ -1,4 +1,4 @@
-package main
+package p238
 
 func productExceptSelf(nums []int) []int {
 	var leftProduct []int

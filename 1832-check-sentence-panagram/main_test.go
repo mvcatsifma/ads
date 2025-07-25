@@ -1,4 +1,4 @@
-package main
+package p1832
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -20,4 +20,3 @@ func Test2(t *testing.T) {
 
 	assert.False(t, result)
 }
-

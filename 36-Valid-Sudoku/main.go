@@ -1,4 +1,4 @@
-package main
+package p36
 
 type key struct {
 	x int // row / 3

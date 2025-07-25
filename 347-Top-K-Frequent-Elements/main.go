@@ -1,4 +1,4 @@
-package topKFrequent
+package p347
 
 import (
 	"container/heap"

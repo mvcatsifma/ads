@@ -1,10 +1,10 @@
-package main
+package p876
 
 import (
 	"reflect"
 	"testing"
 
-	lib "leetcode-lib"
+	lib "leetcode/lib"
 )
 
 func Test_middleNode(t *testing.T) {

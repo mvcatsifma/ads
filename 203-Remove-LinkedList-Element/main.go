@@ -1,6 +1,6 @@
-package main
+package p203
 
-import lib "leetcode-lib"
+import "leetcode/lib"
 
 func removeElements(head *lib.ListNode, val int) *lib.ListNode {
 	for head != nil && head.Val == val {

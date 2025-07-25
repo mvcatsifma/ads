@@ -1,4 +1,4 @@
-package main
+package p242
 
 import "testing"
 

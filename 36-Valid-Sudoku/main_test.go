@@ -1,4 +1,4 @@
-package main
+package p36
 
 import (
 	"testing"

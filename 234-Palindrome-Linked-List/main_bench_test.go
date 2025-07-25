@@ -1,10 +1,10 @@
-package main
+package p234
 
 import (
 	"fmt"
 	"testing"
 
-	lib "leetcode-lib"
+	lib "leetcode/lib"
 )
 
 func BenchmarkIsPalindrome(b *testing.B) {

@@ -1,4 +1,4 @@
-package main
+package p383
 
 func canConstruct(ransomNote string, magazine string) bool {
 	letters := make(map[rune]int)

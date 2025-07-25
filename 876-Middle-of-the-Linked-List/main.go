@@ -1,6 +1,6 @@
-package main
+package p876
 
-import lib "leetcode-lib"
+import "leetcode/lib"
 
 func middleNode(head *lib.ListNode) *lib.ListNode {
 	var end = head

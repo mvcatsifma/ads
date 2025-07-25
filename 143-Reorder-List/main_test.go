@@ -1,10 +1,10 @@
-package main
+package p143
 
 import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	lib "leetcode-lib"
+	lib "leetcode/lib"
 )
 
 func Test_reorderList(t *testing.T) {

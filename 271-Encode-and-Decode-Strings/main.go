@@ -1,4 +1,4 @@
-package main
+package p271
 
 import (
 	"bytes"

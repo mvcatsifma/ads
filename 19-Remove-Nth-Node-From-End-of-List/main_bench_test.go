@@ -1,10 +1,10 @@
-package main
+package p19
 
 import (
 	"fmt"
 	"testing"
 
-	lib "leetcode-lib"
+	lib "leetcode/lib"
 )
 
 func BenchmarkRemoveNthFromEnd(b *testing.B) {

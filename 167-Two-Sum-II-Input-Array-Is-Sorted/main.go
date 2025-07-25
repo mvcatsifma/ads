@@ -1,4 +1,4 @@
-package main
+package p167
 
 func twoSum(numbers []int, target int) []int {
 	start := 0

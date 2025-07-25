@@ -1,4 +1,4 @@
-package main
+package p11
 
 func maxArea(height []int) int {
 	var result int

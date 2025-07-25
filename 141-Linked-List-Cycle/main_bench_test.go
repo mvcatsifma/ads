@@ -1,10 +1,10 @@
-package main
+package p141
 
 import (
 	"fmt"
 	"testing"
 
-	lib "leetcode-lib"
+	lib "leetcode/lib"
 )
 
 func Benchmark_hasCycle(b *testing.B) {

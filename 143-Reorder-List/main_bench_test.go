@@ -1,10 +1,10 @@
-package main
+package p143
 
 import (
 	"fmt"
 	"testing"
 
-	lib "leetcode-lib"
+	lib "leetcode/lib"
 )
 
 func Benchmark_reorderList(b *testing.B) {

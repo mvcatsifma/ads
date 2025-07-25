@@ -1,4 +1,4 @@
-package main
+package p412
 
 import "strconv"
 

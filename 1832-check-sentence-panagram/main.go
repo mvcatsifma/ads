@@ -1,4 +1,4 @@
-package main
+package p1832
 
 import (
 	"strings"

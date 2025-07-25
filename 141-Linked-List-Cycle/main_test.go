@@ -1,9 +1,9 @@
-package main
+package p141
 
 import (
 	"testing"
 
-	lib "leetcode-lib"
+	lib "leetcode/lib"
 )
 
 func Test_hasCycle(t *testing.T) {

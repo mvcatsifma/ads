@@ -1,4 +1,4 @@
-package copyListWithRandomPointer
+package p138
 
 import (
 	"testing"
