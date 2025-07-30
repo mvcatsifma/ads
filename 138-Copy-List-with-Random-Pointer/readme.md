@@ -31,3 +31,7 @@ Performance (from benchmarks):
 - Approximately one allocation per node
 
 The solution prioritizes clarity and correctness while maintaining good performance characteristics through efficient hash map usage.
+
+## Approach: Single-Pass Hash Map Deep Copy of Linked List with Random Pointers
+
+Same as above but using a single pass.
