@@ -1,16 +1,13 @@
 package p83
 
-import "fmt"
+import (
+	"leetcode/lib"
+)
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func deleteDuplicates(head *ListNode) *ListNode {
+func deleteDuplicates(head *lib.ListNode) *lib.ListNode {
 	values := make(map[int]bool)
 	input := head
-	var prev *ListNode
+	var prev *lib.ListNode
 	for head != nil {
 		if ok := values[head.Val]; ok {
 			prev.Next = head.Next
@@ -22,11 +19,4 @@ func deleteDuplicates(head *ListNode) *ListNode {
 	}
 
 	return input
-}
-
-func printList(head *ListNode) {
-	for head != nil {
-		fmt.Printf("%v", head)
-		head = head.Next
-	}
 }
