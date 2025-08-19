@@ -8,10 +8,8 @@ func findDuplicate(nums []int) int {
 		count := countLessOrEqual(nums, mid)
 
 		if count > mid {
-			// Duplicate is in range [left, mid]
 			right = mid
 		} else {
-			// Duplicate is in range [mid+1, right]
 			left = mid + 1
 		}
 	}
