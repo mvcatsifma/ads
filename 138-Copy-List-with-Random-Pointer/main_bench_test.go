@@ -36,7 +36,7 @@ func createTestList(size int) *Node {
 		nodes[i] = &Node{Val: i}
 	}
 
-	// Connect Next pointers
+	// Connect next pointers
 	for i := 0; i < size-1; i++ {
 		nodes[i].Next = nodes[i+1]
 	}

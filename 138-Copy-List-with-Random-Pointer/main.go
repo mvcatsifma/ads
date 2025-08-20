@@ -23,7 +23,7 @@ func copyRandomList(head *Node) *Node {
 		return newNode
 	}
 
-	// First pass: create all nodes and set Next pointers
+	// First pass: create all nodes and set next pointers
 	current := head
 	var prev *Node
 	var newHead *Node

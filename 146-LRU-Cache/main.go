@@ -1,47 +1,73 @@
 package p46
 
-import "math"
-
 type LRUCache struct {
 	capacity int
-	nums     map[int]int
-	age      map[int]int
-	curr     int
+	head     *listNode
+	tail     *listNode
+	m        map[int]*listNode
 }
 
 func Constructor(capacity int) LRUCache {
+	head := &listNode{}
+	tail := &listNode{}
+	head.next = tail
+	tail.prev = head
+
 	return LRUCache{
 		capacity: capacity,
-		nums:     make(map[int]int),
-		age:      make(map[int]int),
-		curr:     0,
+		head:     head,
+		tail:     tail,
+		m:        make(map[int]*listNode),
 	}
 }
 
 func (c *LRUCache) Get(key int) int {
-	if v, ok := c.nums[key]; ok {
-		c.curr++
-		c.age[key] = c.curr
-		return v
+	if n, ok := c.m[key]; ok {
+		c.Remove(key)
+		c.Add(key, n.value)
+		return n.value
 	}
 	return -1
 }
 
 func (c *LRUCache) Put(key int, value int) {
-	c.curr++
-	c.nums[key] = value
-	c.age[key] = c.curr
-
-	if len(c.nums) > c.capacity {
-		var l = math.MaxInt
-		var e int
-		for k, v := range c.age {
-			if v < l {
-				l = v
-				e = k
-			}
-		}
-		delete(c.nums, e)
-		delete(c.age, e)
+	if _, ok := c.m[key]; ok {
+		c.Remove(key)
+		c.Add(key, value)
+	} else {
+		c.Add(key, value)
 	}
+
+	if len(c.m) > c.capacity {
+		delete(c.m, c.head.next.key)
+		c.head.next = c.head.next.next
+		c.head.next.prev = c.head
+	}
+}
+
+func (c *LRUCache) Add(key int, value int) {
+	n := &listNode{
+		key:   key,
+		value: value,
+		prev:  c.tail.prev,
+		next:  c.tail,
+	}
+
+	c.tail.prev.next = n
+	c.tail.prev = n
+
+	c.m[key] = n
+}
+
+func (c *LRUCache) Remove(key int) {
+	n := c.m[key]
+	n.prev.next = n.next
+	n.next.prev = n.prev
+}
+
+type listNode struct {
+	key   int
+	value int
+	next  *listNode
+	prev  *listNode
 }

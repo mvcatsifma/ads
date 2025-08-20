@@ -73,9 +73,9 @@ func createLinkedListWithRandom(arr [][]int) *Node {
 		nodes[i] = &Node{Val: pair[0]}
 	}
 
-	// Second pass: connect Next and Random pointers
+	// Second pass: connect next and Random pointers
 	for i, pair := range arr {
-		// Connect Next pointer
+		// Connect next pointer
 		if i < len(arr)-1 {
 			nodes[i].Next = nodes[i+1]
 		}
