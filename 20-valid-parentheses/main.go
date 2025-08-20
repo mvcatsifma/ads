@@ -1,16 +1,7 @@
 package p20
 
-import (
-	"fmt"
-)
-
 const (
 	ParenthesesOpen int = iota
-	ParenthesesClose
-	BraceOpen
-	BraceClose
-	SquareOpen
-	SquareClose
 )
 
 func isValid(strs string) bool {
@@ -24,23 +15,9 @@ func isValid(strs string) bool {
 		switch string(s) {
 		case "(":
 			st.push(ParenthesesOpen)
-		case "{":
-			st.push(BraceOpen)
-		case "[":
-			st.push(SquareOpen)
 		case ")":
 			b := st.pop()
 			if b != ParenthesesOpen {
-				return false
-			}
-		case "}":
-			bracket := st.pop()
-			if bracket != BraceOpen {
-				return false
-			}
-		case "]":
-			bracket := st.pop()
-			if bracket != SquareOpen {
 				return false
 			}
 		}
@@ -69,13 +46,4 @@ func (s *stack) pop() int {
 
 func (s *stack) size() int {
 	return len(s.values)
-}
-
-func main() {
-	s := &stack{}
-	s.push(ParenthesesOpen)
-	s.push(ParenthesesClose)
-	fmt.Println(s.pop())
-	fmt.Println(s.pop())
-	fmt.Println(s.pop())
 }
