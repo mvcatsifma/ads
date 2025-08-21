@@ -35,6 +35,13 @@ func Test_dailyTemperatures(t *testing.T) {
 			},
 			want: []int{1, 1, 0},
 		},
+		{
+			name: "case 4",
+			args: args{
+				temperatures: []int{10, 9, 8, 7, 6, 5, 4, 3, 2, 100},
+			},
+			want: []int{9, 8, 7, 6, 5, 4, 3, 2, 1, 0},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
