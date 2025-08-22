@@ -1,24 +1,23 @@
 package p3
 
-func main() {
-	lengthOfLongestSubstring("abcabcbb")
-}
-
 func lengthOfLongestSubstring(s string) int {
-	m := make(map[string]bool)
-	var w []string
-	var l int
-	for _, v := range s {
-		w = append(w, string(v))
-		for m[string(v)] {
-			first := w[0]
-			delete(m, first)
-			w = w[1:]
+	var answer int
+	for i := 0; i < len(s); i++ {
+		count := 1
+		chars := make(map[uint8]bool)
+		chars[s[i]] = true
+	SubLoop:
+		for j := i + 1; j < len(s); j++ {
+			if _, ok := chars[s[j]]; ok {
+				break SubLoop
+			}
+			chars[s[j]] = true
+			count++
 		}
-		m[string(v)] = true
-		if len(w) > l {
-			l = len(w)
+		if count > answer {
+			answer = count
 		}
 	}
-	return l
+
+	return answer
 }
