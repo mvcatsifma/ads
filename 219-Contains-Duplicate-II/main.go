@@ -1,11 +1,14 @@
 package p219
 
 func containsNearbyDuplicate(nums []int, k int) bool {
+	m := make(map[int]bool)
 	for i, num := range nums {
-		for j := i + 1; j <= i+k && j < len(nums); j++ {
-			if num == nums[j] {
-				return true
-			}
+		if ok := m[num]; ok {
+			return true
+		}
+		m[num] = true
+		if len(m) > k {
+			delete(m, nums[i-k])
 		}
 	}
 	return false
