@@ -1,7 +1,5 @@
 package p594
 
-import "math"
-
 // findLHS finds the length of the longest harmonious subsequence in the array.
 // A harmonious subsequence is defined as a subsequence where the difference
 // between the maximum and minimum values is exactly 1.
@@ -28,17 +26,18 @@ import "math"
 //
 // Returns: length of the longest harmonious subsequence, or 0 if none exists
 func findLHS(nums []int) int {
-	m := make(map[int]int)
+	m := make(map[int]int, len(nums)) // pre-allocate
 	for _, num := range nums {
 		m[num]++
 	}
 
 	var result int
 	for k := range m {
-		if _, ok := m[k+1]; ok {
-			result = int(math.Max(float64(result), float64(m[k]+m[k+1])))
+		if count, ok := m[k+1]; ok {
+			if sum := m[k] + count; sum > result {
+				result = sum
+			}
 		}
 	}
-
 	return result
 }
