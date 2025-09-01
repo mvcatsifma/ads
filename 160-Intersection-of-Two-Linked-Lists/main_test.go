@@ -126,7 +126,7 @@ func Test_getIntersectionNode(t *testing.T) {
 }
 
 // Helper function to create linked list from slice
-func createList(vals []int) *ListNode {
+func createListFromIntSlice(vals []int) *ListNode {
 	if len(vals) == 0 {
 		return nil
 	}
@@ -140,15 +140,6 @@ func createList(vals []int) *ListNode {
 	}
 
 	return head
-}
-
-// Helper function to get node at specific position
-func getNodeAt(head *ListNode, pos int) *ListNode {
-	current := head
-	for i := 0; i < pos && current != nil; i++ {
-		current = current.Next
-	}
-	return current
 }
 
 // Helper function to connect list to tail at specific position
@@ -167,17 +158,17 @@ func connectToTail(head, tail *ListNode) {
 func createIntersectingLists(tc args) (*ListNode, *ListNode, *ListNode) {
 	if tc.intersectVal == 0 {
 		// No intersection
-		return createList(tc.listA), createList(tc.listB), nil
+		return createListFromIntSlice(tc.listA), createListFromIntSlice(tc.listB), nil
 	}
 
 	// Create the common tail (intersection part) from listA
 	intersectionStart := tc.skipA
-	commonTail := createList(tc.listA[intersectionStart:])
+	commonTail := createListFromIntSlice(tc.listA[intersectionStart:])
 
 	// Create list A
 	var headA *ListNode
 	if tc.skipA > 0 {
-		headA = createList(tc.listA[:tc.skipA])
+		headA = createListFromIntSlice(tc.listA[:tc.skipA])
 		connectToTail(headA, commonTail)
 	} else {
 		headA = commonTail
@@ -187,7 +178,7 @@ func createIntersectingLists(tc args) (*ListNode, *ListNode, *ListNode) {
 	var headB *ListNode
 	if tc.skipB > 0 {
 		// listB should have its own unique prefix, then connect to common tail
-		headB = createList(tc.listB[:tc.skipB])
+		headB = createListFromIntSlice(tc.listB[:tc.skipB])
 		connectToTail(headB, commonTail)
 	} else {
 		headB = commonTail
@@ -198,38 +189,3 @@ func createIntersectingLists(tc args) (*ListNode, *ListNode, *ListNode) {
 
 	return headA, headB, expectedIntersection
 }
-
-// Create intersecting linked lists based on test case parameters
-//func createIntersectingLists(tc args) (*ListNode, *ListNode, *ListNode) {
-//	if tc.intersectVal == 0 {
-//		// No intersection
-//		return createList(tc.listA), createList(tc.listB), nil
-//	}
-//
-//	// Create the common tail (intersection part)
-//	intersectionStart := len(tc.listA) - tc.skipA
-//	commonTail := createList(tc.listA[intersectionStart:])
-//
-//	// Create list A
-//	var headA *ListNode
-//	if tc.skipA > 0 {
-//		headA = createList(tc.listA[:intersectionStart])
-//		connectToTail(headA, commonTail)
-//	} else {
-//		headA = commonTail
-//	}
-//
-//	// Create list B
-//	var headB *ListNode
-//	if tc.skipB > 0 {
-//		headB = createList(tc.listB[:tc.skipB])
-//		connectToTail(headB, commonTail)
-//	} else {
-//		headB = commonTail
-//	}
-//
-//	// Expected intersection node
-//	expectedIntersection := getNodeAt(headA, tc.skipA)
-//
-//	return headA, headB, expectedIntersection
-//}

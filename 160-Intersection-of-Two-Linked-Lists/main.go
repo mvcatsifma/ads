@@ -1,5 +1,22 @@
 package p160
 
+// getIntersectionNode finds the node where two singly linked lists intersect.
+// It returns the intersection node if the lists intersect, or nil if they don't.
+//
+// The function uses a two-phase approach:
+// 1. Calculate the length of both lists
+// 2. Align the starting positions by advancing the longer list's pointer
+// 3. Traverse both lists simultaneously until finding the intersection
+//
+// Time complexity: O(m + n) where m and n are the lengths of the lists
+// Space complexity: O(1)
+//
+// Parameters:
+//   - headA: pointer to the head of the first linked list
+//   - headB: pointer to the head of the second linked list
+//
+// Returns:
+//   - *ListNode: the intersection node if lists intersect, nil otherwise
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	lenA := getLength(headA)
 	lenB := getLength(headB)
