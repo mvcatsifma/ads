@@ -1,23 +1,43 @@
 package p160
 
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
-	nodesInA := make(map[*ListNode]int)
-	for headA != nil {
-		nodesInA[headA] = headA.Val
-		headA = headA.Next
-	}
+	lenA := getLength(headA)
+	lenB := getLength(headB)
 
-	for headB != nil {
-		if _, ok := nodesInA[headB]; ok {
-			return headB
+	currA, currB := headA, headB
+
+	if lenA > lenB {
+		currA = headA
+		for i := 0; i < lenA-lenB; i++ {
+			currA = currA.Next
 		}
-		headB = headB.Next
+		currB = headB
+	} else {
+		currB = headB
+		for i := 0; i < lenB-lenA; i++ {
+			currB = currB.Next
+		}
+		currA = headA
 	}
 
-	return nil
+	for currA != currB {
+		currA = currA.Next
+		currB = currB.Next
+	}
+
+	return currA
 }
 
 type ListNode struct {
 	Val  int
 	Next *ListNode
+}
+
+func getLength(head *ListNode) int {
+	length := 0
+	for head != nil {
+		length++
+		head = head.Next
+	}
+	return length
 }
