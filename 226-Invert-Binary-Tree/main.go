@@ -1,5 +1,7 @@
 package p226
 
+import "leetcode/lib"
+
 // invertTree inverts a binary tree by swapping left and right children of all nodes.
 // The inversion is performed recursively in-place, modifying the original tree structure.
 // Returns the root of the inverted tree, or nil if the input tree is empty.
@@ -14,7 +16,7 @@ package p226
 //
 // Time complexity: O(n) where n is the number of nodes
 // Space complexity: O(h) where h is the height of the tree (recursion stack)
-func invertTree(root *TreeNode) *TreeNode {
+func invertTree(root *lib.TreeNode) *lib.TreeNode {
 	if root == nil {
 		return nil
 	}
@@ -27,10 +29,4 @@ func invertTree(root *TreeNode) *TreeNode {
 	invertTree(root.Right)
 
 	return root
-}
-
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
 }
