@@ -3,13 +3,14 @@ package p160
 // getIntersectionNode finds the node where two singly linked lists intersect.
 // It returns the intersection node if the lists intersect, or nil if they don't.
 //
-// The function uses a two-phase approach:
-// 1. Calculate the length of both lists
-// 2. Align the starting positions by advancing the longer list's pointer
-// 3. Traverse both lists simultaneously until finding the intersection
+// The function uses the "two-pointer" approach to find the intersection node:
+// 1. Initialize two pointers, pA and pB, to the heads of the two lists.
+// 2. Traverse both lists simultaneously, moving one pointer at a time.
+// 3. If a pointer reaches the end of its list, redirect it to the head of the other list.
+// 4. The two pointers will eventually meet at the intersection node, or both will be nil if there is no intersection.
 //
-// Time complexity: O(m + n) where m and n are the lengths of the lists
-// Space complexity: O(1)
+// Time complexity: O(m + n), where m and n are the lengths of the two lists.
+// Space complexity: O(1), as the function uses only a constant amount of extra space.
 //
 // Parameters:
 //   - headA: pointer to the head of the first linked list
@@ -18,31 +19,23 @@ package p160
 // Returns:
 //   - *ListNode: the intersection node if lists intersect, nil otherwise
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
-	lenA := getLength(headA)
-	lenB := getLength(headB)
+	var pA, pB = headA, headB
 
-	currA, currB := headA, headB
+	for pA != pB {
+		if pA != nil {
+			pA = pA.Next
+		} else {
+			pA = headB
+		}
 
-	if lenA > lenB {
-		currA = headA
-		for i := 0; i < lenA-lenB; i++ {
-			currA = currA.Next
+		if pB != nil {
+			pB = pB.Next
+		} else {
+			pB = headA
 		}
-		currB = headB
-	} else {
-		currB = headB
-		for i := 0; i < lenB-lenA; i++ {
-			currB = currB.Next
-		}
-		currA = headA
 	}
 
-	for currA != currB {
-		currA = currA.Next
-		currB = currB.Next
-	}
-
-	return currA
+	return pA
 }
 
 type ListNode struct {
