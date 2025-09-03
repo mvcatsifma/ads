@@ -1,8 +1,6 @@
 package p110
 
 import (
-	"math"
-
 	"leetcode/lib"
 )
 
@@ -48,7 +46,10 @@ func isBalanced(root *lib.TreeNode) bool {
 		hl := dfs(root.Left)
 		hr := dfs(root.Right)
 
-		diff := math.Abs(float64(hl - hr))
+		diff := hl - hr
+		if diff < 0 {
+			diff = -diff
+		}
 		if diff > 1 {
 			isBalanced = false
 		}
