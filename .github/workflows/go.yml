@@ -10,41 +10,19 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
+
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.23'
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.23'
 
-      - name: Build
-        run: go build -v ./...
+    - name: Build
+      run: go build -v ./...
 
-      - name: Test with coverage (save logs)
-        shell: bash
-        run: |
-          mkdir -p reports/test reports/coverage
-          go test -v -covermode=atomic -coverprofile=reports/coverage.out ./... | tee reports/test/test.log
-          go tool cover -func=reports/coverage.out | awk '/total:/ { print $3 }' > reports/coverage/coverage.txt
-          go tool cover -html=reports/coverage.out -o reports/coverage.html
-
-      - name: Show summary with coverage
-        shell: bash
-        run: |
-          echo "## Go Test & Coverage Summary" >> "$GITHUB_STEP_SUMMARY"
-          if [ -f reports/coverage/coverage.txt ]; then
-            echo "**Coverage:** \`$(cat reports/coverage/coverage.txt)\`" >> "$GITHUB_STEP_SUMMARY"
-          fi
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "<details><summary>Test Log (click to expand)</summary>" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          head -500 reports/test/test.log >> "$GITHUB_STEP_SUMMARY" || true
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "</details>" >> "$GITHUB_STEP_SUMMARY"
+    - name: Test
+      run: go test -v ./...
