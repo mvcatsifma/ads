@@ -32,25 +32,11 @@ import (
 //          2                  2
 // Returns false (different structure)
 func isSameTree(p *lib.TreeNode, q *lib.TreeNode) bool {
-	var dfs func(*lib.TreeNode, *lib.TreeNode) bool
-	dfs = func(p *lib.TreeNode, q *lib.TreeNode) bool {
-		if p == nil && q == nil {
-			return true
-		}
-		if xor(p == nil, q == nil) {
-			return false
-		}
-
-		if p.Val != q.Val {
-			return false
-		}
-
-		return dfs(p.Left, q.Left) && dfs(p.Right, q.Right)
+	if p == nil || q == nil {
+		return p == q // true only if both nil
 	}
 
-	return dfs(p, q)
-}
-
-func xor(a, b bool) bool {
-	return a != b
+	return p.Val == q.Val &&
+		isSameTree(p.Left, q.Left) &&
+		isSameTree(p.Right, q.Right)
 }
