@@ -1,9 +1,6 @@
 package p100
 
 import (
-	"math"
-	"reflect"
-
 	"leetcode/lib"
 )
 
@@ -11,41 +8,49 @@ import (
 // the same node values. Two trees are considered the same if they have identical
 // structure and all corresponding nodes contain the same values.
 //
-// The algorithm uses preorder traversal (root -> left -> right) to serialize both
-// trees into slices, using math.MaxInt as a sentinel value to represent nil nodes.
-// This ensures that structural differences are captured - trees with different
-// structures will produce different serializations even if they contain the same values.
+// The algorithm uses recursive depth-first traversal to compare corresponding nodes
+// simultaneously. At each step, it checks:
+// 1. Both nodes are nil (base case - subtrees match)
+// 2. Exactly one node is nil (structural mismatch)
+// 3. Node values differ (value mismatch)
+// 4. Recursively compare left and right subtrees
 //
-// For example:
+// The XOR check efficiently detects structural mismatches - if exactly one of the
+// nodes is nil, the trees have different structures at this position.
+//
+// Time complexity: O(min(m,n)) where m,n are the number of nodes in each tree
+// Space complexity: O(min(h1,h2)) where h1,h2 are the heights (recursion stack)
+//
+// Example:
 //   Tree 1:  1      Tree 2:  1
-//           / \              \
-//          2   3              2
-//                            /
-//                           3
-// Serializes to: [1,2,MaxInt,MaxInt,3,MaxInt,MaxInt] vs [1,MaxInt,2,3,MaxInt,MaxInt,MaxInt]
+//           / \              / \
+//          2   3            2   3
+// Returns true (identical structure and values)
 //
-// Time complexity: O(n) where n is the number of nodes in the larger tree
-// Space complexity: O(n) for the serialization slices + O(h) for recursion stack
-//
-// Note: Uses preorder traversal with nil sentinels to ensure structural comparison.
+//   Tree 1:  1      Tree 2:  1
+//           /                \
+//          2                  2
+// Returns false (different structure)
 func isSameTree(p *lib.TreeNode, q *lib.TreeNode) bool {
-	pVals := make([]int, 0)
-	qVals := make([]int, 0)
-
-	var dfs func(*lib.TreeNode, *[]int)
-	dfs = func(node *lib.TreeNode, vals *[]int) {
-		if node == nil {
-			*vals = append(*vals, math.MaxInt)
-			return
+	var dfs func(*lib.TreeNode, *lib.TreeNode) bool
+	dfs = func(p *lib.TreeNode, q *lib.TreeNode) bool {
+		if p == nil && q == nil {
+			return true
 		}
-		*vals = append(*vals, node.Val)
+		if xor(p == nil, q == nil) {
+			return false
+		}
 
-		dfs(node.Left, vals)
-		dfs(node.Right, vals)
+		if p.Val != q.Val {
+			return false
+		}
+
+		return dfs(p.Left, q.Left) && dfs(p.Right, q.Right)
 	}
 
-	dfs(p, &pVals)
-	dfs(q, &qVals)
+	return dfs(p, q)
+}
 
-	return reflect.DeepEqual(pVals, qVals)
+func xor(a, b bool) bool {
+	return a != b
 }
