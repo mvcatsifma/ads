@@ -1,4 +1,7 @@
-name: Go • Tests + HTML Report + Coverage (always report)
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: Go
 
 on:
   push:
@@ -22,115 +25,26 @@ jobs:
       - name: Build
         run: go build -v ./...
 
-      # Run tests but NEVER fail this step; capture exit code and produce coverage + logs
-      - name: Test with coverage (capture exit, keep going)
+      - name: Test with coverage (save logs)
         shell: bash
         run: |
-          set -o pipefail
           mkdir -p reports/test reports/coverage
-
-          # Run tests with coverage; capture exit code (even if any package fails)
-          set +e
           go test -v -covermode=atomic -coverprofile=reports/coverage.out ./... | tee reports/test/test.log
-          TEST_EXIT=${PIPESTATUS[0]}
-          echo "$TEST_EXIT" > reports/test/exit_code.txt
-          set -e
+          go tool cover -func=reports/coverage.out | awk '/total:/ { print $3 }' > reports/coverage/coverage.txt
+          go tool cover -html=reports/coverage.out -o reports/coverage.html
 
-          # Coverage artifacts (if available)
-          if [ -s reports/coverage.out ]; then
-            go tool cover -func=reports/coverage.out | awk '/total:/ { print $3 }' > reports/coverage/coverage.txt || true
-            go tool cover -html=reports/coverage.out -o reports/coverage.html || true
-          else
-            echo "n/a" > reports/coverage/coverage.txt
-          fi
-
-      # Make a readable HTML-like test report from `go test -v` output (stays on runner)
-      - name: Generate HTML test report (simple)
+      - name: Show summary with coverage
         shell: bash
         run: |
-          mkdir -p site
-          # Escape special chars
-          sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' reports/test/test.log > reports/test/test.escaped
-          # Basic PASS/FAIL highlighting
-          sed -i 's/--- FAIL/<span class="fail">--- FAIL<\/span>/g' reports/test/test.escaped
-          sed -i 's/FAIL\t/<span class="fail">FAIL\t<\/span>/g' reports/test/test.escaped
-          sed -i 's/--- PASS/<span class="pass">--- PASS<\/span>/g' reports/test/test.escaped
-          sed -i 's/PASS\t/<span class="pass">PASS\t<\/span>/g' reports/test/test.escaped
-
-          cat > site/test-report.html <<'HTML'
-          <!doctype html>
-          <html lang="en">
-          <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Go Test Report</title>
-            <style>
-              body { font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; padding: 2rem; color: #111; }
-              h1 { margin-top: 0; }
-              pre { background: #fafafa; border: 1px solid #eee; border-radius: 12px; padding: 1rem; overflow-x: auto; }
-              .pass { color: #1a7f37; font-weight: 600; }
-              .fail { color: #d1242f; font-weight: 700; }
-              .badge { display: inline-block; padding: .2rem .5rem; border-radius: 999px; border: 1px solid #ddd; }
-            </style>
-          </head>
-          <body>
-            <h1>Go Test Report</h1>
-            <pre>
-          HTML
-          cat reports/test/test.escaped >> site/test-report.html
-          cat >> site/test-report.html <<'HTML'
-            </pre>
-          </body>
-          </html>
-          HTML
-
-      # Rich job summary that always renders, even on failures
-      - name: Job Summary (coverage + log excerpts)
-        if: always()
-        shell: bash
-        run: |
-          COV=$(cat reports/coverage/coverage.txt 2>/dev/null || echo "n/a")
-          EXIT=$(cat reports/test/exit_code.txt 2>/dev/null || echo "1")
-
           echo "## Go Test & Coverage Summary" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-
-          if [ "$EXIT" -eq 0 ]; then
-            echo "**Status:** ✅ Tests passed" >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "**Status:** ❌ Tests failed (exit $EXIT)" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f reports/coverage/coverage.txt ]; then
+            echo "**Coverage:** \`$(cat reports/coverage/coverage.txt)\`" >> "$GITHUB_STEP_SUMMARY"
           fi
-
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "**Coverage:** \`$COV\`" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-
-          echo "<details><summary><strong>First 300 lines of test output</strong></summary>" >> "$GITHUB_STEP_SUMMARY"
+          echo "<details><summary>Test Log (click to expand)</summary>" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
-          head -300 reports/test/test.log >> "$GITHUB_STEP_SUMMARY" || true
+          head -500 reports/test/test.log >> "$GITHUB_STEP_SUMMARY" || true
           echo '```' >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "</details>" >> "$GITHUB_STEP_SUMMARY"
-
-          echo "<details><summary><strong>Last 300 lines of test output</strong></summary>" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          tail -300 reports/test/test.log >> "$GITHUB_STEP_SUMMARY" || true
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "</details>" >> "$GITHUB_STEP_SUMMARY"
-
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "> Note: Full HTML files (test-report.html, coverage.html) are generated on the runner for inspection during this run." >> "$GITHUB_STEP_SUMMARY"
-
-      # Finally, reflect the test result in the job status
-      - name: Fail if tests failed
-        if: always()
-        shell: bash
-        run: |
-          EXIT=$(cat reports/test/exit_code.txt 2>/dev/null || echo "1")
-          if [ "$EXIT" -ne 0 ]; then
-            echo "Tests failed (exit $EXIT). Failing job after generating reports."
-            exit "$EXIT"
-          fi
