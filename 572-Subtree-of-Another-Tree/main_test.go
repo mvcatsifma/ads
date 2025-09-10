@@ -1,4 +1,4 @@
-package p100
+package p572
 
 import (
 	"math"
@@ -7,10 +7,10 @@ import (
 	"leetcode/lib"
 )
 
-func Test_isSameTree(t *testing.T) {
+func Test_isSubtree(t *testing.T) {
 	type args struct {
-		p []int
-		q []int
+		root    []int
+		subRoot []int
 	}
 	tests := []struct {
 		name string
@@ -20,42 +20,34 @@ func Test_isSameTree(t *testing.T) {
 		{
 			name: "case 1",
 			args: args{
-				p: []int{1, 2, 3},
-				q: []int{1, 2, 3},
+				root:    []int{3, 4, 5, 1, 2},
+				subRoot: []int{4, 1, 2},
 			},
 			want: true,
 		},
 		{
 			name: "case 2",
 			args: args{
-				p: []int{1, 2},
-				q: []int{1, math.MaxInt, 2},
+				root:    []int{3, 4, 5, 1, 2, math.MaxInt, math.MaxInt, math.MaxInt, math.MaxInt, 0},
+				subRoot: []int{4, 1, 2},
 			},
 			want: false,
 		},
 		{
 			name: "case 3",
 			args: args{
-				p: []int{1, 2, 1},
-				q: []int{1, 1, 2},
+				root:    []int{},
+				subRoot: []int{},
 			},
-			want: false,
-		},
-		{
-			name: "case 4",
-			args: args{
-				p: []int{1, -1},
-				q: []int{1, math.MaxInt, -1},
-			},
-			want: false,
+			want: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			p := buildTree(tt.args.p)
-			q := buildTree(tt.args.q)
-			if got := isSameTree(p, q); got != tt.want {
-				t.Errorf("isSameTree() = %v, want %v", got, tt.want)
+			root := buildTree(tt.args.root)
+			subRoot := buildTree(tt.args.subRoot)
+			if got := isSubtree(root, subRoot); got != tt.want {
+				t.Errorf("isSubtree() = %v, want %v", got, tt.want)
 			}
 		})
 	}
