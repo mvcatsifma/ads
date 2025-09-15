@@ -4,29 +4,29 @@ import (
 	"leetcode/lib"
 )
 
+// isSubtree determines whether subRoot is a subtree of root.
+// A subtree is defined as a tree that consists of a node in root and all of its descendants.
+// Two trees are considered the same if they are structurally identical and have the same node values.
+//
+// Time complexity: O(m*n) where m is the number of nodes in root and n is the number of nodes in subRoot.
+// Space complexity: O(max(h1, h2)) where h1 and h2 are the heights of root and subRoot respectively (due to recursion stack).
+//
+// Returns true if subRoot is a subtree of root, false otherwise.
+// Returns true if subRoot is nil (empty tree is subtree of any tree).
+// Returns false if root is nil but subRoot is not nil.
 func isSubtree(root *lib.TreeNode, subRoot *lib.TreeNode) bool {
-	if root == nil && subRoot == nil {
+	if root == nil {
+		return false
+	}
+	if subRoot == nil {
 		return true
 	}
 
-	var same bool
-	var dfs func(root *lib.TreeNode)
-	dfs = func(root *lib.TreeNode) {
-		if root == nil {
-			return
-		}
-
-		dfs(root.Left)
-		dfs(root.Right)
-
-		if isSameTree(root, subRoot) {
-			same = true
-		}
+	if isSameTree(root, subRoot) {
+		return true
 	}
 
-	dfs(root)
-
-	return same
+	return isSubtree(root.Left, subRoot) || isSubtree(root.Right, subRoot)
 }
 
 func isSameTree(p *lib.TreeNode, q *lib.TreeNode) bool {

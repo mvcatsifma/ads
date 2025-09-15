@@ -36,7 +36,7 @@ func Test_isSubtree(t *testing.T) {
 		{
 			name: "case 3",
 			args: args{
-				root:    []int{},
+				root:    []int{1},
 				subRoot: []int{},
 			},
 			want: true,
