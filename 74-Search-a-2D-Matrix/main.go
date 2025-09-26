@@ -1,39 +1,27 @@
 package p74
 
-// searchMatrix searches for a target value in a 2D matrix by flattening it into
-// a 1D slice and performing binary search. Returns true if target is found.
-//
-// Note: This implementation has O(m*n) space complexity due to flattening.
-// For sorted matrices, consider searching directly on the 2D structure for O(1) space.
+// searchMatrix searches for target in a sorted m×n matrix where each row is
+// sorted and the first integer of each row is greater than the last integer
+// of the previous row. Uses O(log(m*n)) time and O(1) space.
 func searchMatrix(matrix [][]int, target int) bool {
-	var ints []int
-	for _, v := range matrix {
-		for _, i := range v {
-			ints = append(ints, i)
-		}
+	if len(matrix) == 0 || len(matrix[0]) == 0 {
+		return false
 	}
 
-	res := search(ints, target)
-	if res != -1 {
-		return true
+	rows, cols := len(matrix), len(matrix[0])
+	l, r := 0, rows*cols-1
+
+	for l <= r {
+		mid := l + (r-l)/2
+		val := matrix[mid/cols][mid%cols]
+		if val == target {
+			return true
+		} else if val > target {
+			r = mid - 1
+		} else {
+			l = mid + 1
+		}
 	}
 
 	return false
-}
-
-func search(nums []int, target int) int {
-	l, r := 0, len(nums)-1
-
-	for l <= r {
-		m := l + (r - l/2)
-		if nums[m] > target {
-			r = m - 1
-		} else if nums[m] < target {
-			l = m + 1
-		} else {
-			return m
-		}
-	}
-
-	return -1
 }
