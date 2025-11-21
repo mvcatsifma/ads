@@ -1,6 +1,7 @@
 package p104
 
 import (
+	"math"
 	"testing"
 
 	"leetcode/lib"
@@ -18,14 +19,14 @@ func Test_maxDepth(t *testing.T) {
 		{
 			name: "case 1",
 			args: args{
-				root: []int{3, 9, 20, -1, -1, 15, 7},
+				root: []int{3, 9, 20, math.MaxInt, math.MaxInt, 15, 7},
 			},
 			want: 3,
 		},
 		{
 			name: "case 2",
 			args: args{
-				root: []int{1, -1, 2},
+				root: []int{1, math.MaxInt, 2},
 			},
 			want: 2,
 		},

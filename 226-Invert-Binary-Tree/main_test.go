@@ -3,8 +3,9 @@ package p226
 import (
 	"testing"
 
-	"github.com/google/go-cmp/cmp"
 	"leetcode/lib"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func Test_invertTree(t *testing.T) {

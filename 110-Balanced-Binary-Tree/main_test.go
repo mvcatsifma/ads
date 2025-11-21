@@ -1,6 +1,7 @@
 package p110
 
 import (
+	"math"
 	"testing"
 
 	"leetcode/lib"
@@ -18,14 +19,14 @@ func Test_isBalanced(t *testing.T) {
 		{
 			name: "case 1",
 			args: args{
-				root: []int{3, 9, 20, -1, -1, 15, 7},
+				root: []int{3, 9, 20, math.MaxInt, math.MaxInt, 15, 7},
 			},
 			want: true,
 		},
 		{
 			name: "case 2",
 			args: args{
-				root: []int{1, 2, 2, 3, 3, -1, -1, 4, 4},
+				root: []int{1, 2, 2, 3, 3, math.MaxInt, math.MaxInt, 4, 4},
 			},
 			want: false,
 		},

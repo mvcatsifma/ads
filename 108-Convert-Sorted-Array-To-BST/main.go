@@ -1,5 +1,7 @@
 package p108
 
+import "leetcode/lib"
+
 // sortedArrayToBST converts a sorted array into a height-balanced binary search tree.
 // Uses a divide-and-conquer approach by recursively selecting the middle element
 // as the root to ensure the resulting BST maintains optimal O(log n) height.
@@ -12,14 +14,14 @@ package p108
 //
 // Returns:
 //   *TreeNode: root of the constructed height-balanced BST, or nil if input is empty
-func sortedArrayToBST(nums []int) *TreeNode {
-	var dfs func(l int, r int) *TreeNode
-	dfs = func(l int, r int) *TreeNode {
+func sortedArrayToBST(nums []int) *lib.TreeNode {
+	var dfs func(l int, r int) *lib.TreeNode
+	dfs = func(l int, r int) *lib.TreeNode {
 		if l > r {
 			return nil
 		}
 		m := (l + r) / 2
-		root := &TreeNode{
+		root := &lib.TreeNode{
 			Val: nums[m],
 		}
 
@@ -29,10 +31,4 @@ func sortedArrayToBST(nums []int) *TreeNode {
 	}
 
 	return dfs(0, len(nums)-1)
-}
-
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
 }
