@@ -3,13 +3,13 @@ package p199
 import "leetcode/lib"
 
 func rightSideView(root *lib.TreeNode) []int {
-	levels := [][]int{}
+	retval := []int{}
 	var helper func(*lib.TreeNode, int)
 	helper = func(node *lib.TreeNode, level int) {
-		if len(levels) == level {
-			levels = append(levels, []int{})
+		if len(retval) == level {
+			retval = append(retval, 0)
 		}
-		levels[level] = append(levels[level], node.Val)
+		retval[level] = node.Val
 		if node.Left != nil {
 			helper(node.Left, level+1)
 		}
@@ -18,15 +18,8 @@ func rightSideView(root *lib.TreeNode) []int {
 		}
 	}
 
-	retval := []int{}
 	if root != nil {
 		helper(root, 0)
-	} else {
-		return retval
-	}
-
-	for _, level := range levels {
-		retval = append(retval, level[len(level)-1])
 	}
 
 	return retval
