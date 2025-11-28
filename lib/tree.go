@@ -26,7 +26,7 @@ type TreeNode struct {
 // Time complexity: O(n) where n is len(nums)
 // Space complexity: O(n) for the queue and tree nodes
 func BuildTree(nums []int) *TreeNode {
-	if len(nums) == 0 || nums[0] == -1 {
+	if len(nums) == 0 {
 		return nil
 	}
 
