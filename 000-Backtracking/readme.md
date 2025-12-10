@@ -34,7 +34,7 @@ For N queens:
 
 This is the engine of backtracking:
 
-```go
+```code
 for _, choice := range validChoices(state) {
     apply(&state, choice)   // move into next state
     backtrack(state)        // explore branch
@@ -48,7 +48,7 @@ Undo ensures the next choice starts clean.
 
 # Updated Universal Template (Short)
 
-```go
+```code
 var backtrack func(state State)
 backtrack = func(state State) {
     if isComplete(state) {
@@ -70,7 +70,7 @@ backtrack(initialState)
 
 # For subsets, the two choices are simply unrolled:
 
-```go
+```code
 // include
 subset = append(subset, nums[i])
 dfs(i+1)
@@ -131,7 +131,7 @@ For N queens:
 
 This is the engine of backtracking:
 
-```go
+```code
 for _, choice := range validChoices(state) {
     apply(&state, choice)   // move into next state
     backtrack(state)        // explore branch
@@ -145,7 +145,7 @@ Undo ensures the next choice starts clean.
 
 # Updated Universal Template (Short)
 
-```go
+```code
 var backtrack func(state State)
 backtrack = func(state State) {
     if isComplete(state) {
@@ -167,7 +167,7 @@ backtrack(initialState)
 
 # For subsets, the two choices are simply unrolled:
 
-```go
+```code
 // include
 subset = append(subset, nums[i])
 dfs(i+1)
@@ -212,7 +212,7 @@ For N queens:
 
 This is the engine of backtracking:
 
-```go
+```code
 for _, choice := range validChoices(state) {
     apply(&state, choice)   // move into next state
     backtrack(state)        // explore branch
@@ -226,7 +226,7 @@ Undo ensures the next choice starts clean.
 
 # Updated Universal Template (Short)
 
-```go
+```code
 var backtrack func(state State)
 backtrack = func(state State) {
     if isComplete(state) {
@@ -248,7 +248,7 @@ backtrack(initialState)
 
 # For subsets, the two choices are simply unrolled:
 
-```go
+```code
 // include
 subset = append(subset, nums[i])
 dfs(i+1)
