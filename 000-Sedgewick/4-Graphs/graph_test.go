@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-const input1 = `6
+const graphConnected = `6
 8
 0 5
 2 4
@@ -30,7 +30,7 @@ func TestNewGraphFromReader(t *testing.T) {
 		{
 			name: "case 1",
 			args: args{
-				input: input1,
+				input: graphConnected,
 			},
 			wantV:   6,
 			wantE:   8,
