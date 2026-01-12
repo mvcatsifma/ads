@@ -1,9 +1,20 @@
-package p4Graphs
+package graphs
 
 import (
 	"strings"
 	"testing"
 )
+
+const GraphConnected = `6
+8
+0 5
+2 4
+2 3
+1 2
+0 1
+3 4
+3 5
+0 2`
 
 func TestNewGraphFromReader(t *testing.T) {
 	type args struct {
@@ -19,7 +30,7 @@ func TestNewGraphFromReader(t *testing.T) {
 		{
 			name: "case 1",
 			args: args{
-				input: graphConnected,
+				input: GraphConnected,
 			},
 			wantV:   6,
 			wantE:   8,

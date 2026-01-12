@@ -1,7 +1,9 @@
-package p4Graphs
+package search
 
 import (
 	"testing"
+
+	"leetcode/000-Sedgewick/4-Graphs/graphs"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -9,7 +11,7 @@ import (
 
 func TestPathToVertex(t *testing.T) {
 	t.Run("path to self", func(t *testing.T) {
-		g := NewGraph(3)
+		g := graphs.NewGraph(3)
 		g.AddEdge(0, 1)
 
 		path := PathToVertex(g, 0, 0)
@@ -19,7 +21,7 @@ func TestPathToVertex(t *testing.T) {
 
 	t.Run("direct connection", func(t *testing.T) {
 		// Graph: 0-1-2
-		g := NewGraph(3)
+		g := graphs.NewGraph(3)
 		g.AddEdge(0, 1)
 		g.AddEdge(1, 2)
 
@@ -30,7 +32,7 @@ func TestPathToVertex(t *testing.T) {
 
 	t.Run("multi-hop path", func(t *testing.T) {
 		// Graph: 0-1-2-3
-		g := NewGraph(4)
+		g := graphs.NewGraph(4)
 		g.AddEdge(0, 1)
 		g.AddEdge(1, 2)
 		g.AddEdge(2, 3)
@@ -43,7 +45,7 @@ func TestPathToVertex(t *testing.T) {
 
 	t.Run("no path exists - disconnected", func(t *testing.T) {
 		// Graph: 0-1  2-3 (two separate components)
-		g := NewGraph(4)
+		g := graphs.NewGraph(4)
 		g.AddEdge(0, 1)
 		g.AddEdge(2, 3)
 
@@ -56,7 +58,7 @@ func TestPathToVertex(t *testing.T) {
 		// Graph: 0-1
 		//        |/|
 		//        2-3 (cycle)
-		g := NewGraph(4)
+		g := graphs.NewGraph(4)
 		g.AddEdge(0, 1)
 		g.AddEdge(0, 2)
 		g.AddEdge(1, 3)
@@ -79,7 +81,7 @@ func TestPathToVertex(t *testing.T) {
 		// Graph: 1-0-2 (0 is center)
 		//          |
 		//          3
-		g := NewGraph(4)
+		g := graphs.NewGraph(4)
 		g.AddEdge(0, 1)
 		g.AddEdge(0, 2)
 		g.AddEdge(0, 3)
@@ -93,7 +95,7 @@ func TestPathToVertex(t *testing.T) {
 		// Graph: 1-0-2 (0 is center)
 		//          |
 		//          3
-		g := NewGraph(4)
+		g := graphs.NewGraph(4)
 		g.AddEdge(0, 1)
 		g.AddEdge(0, 2)
 		g.AddEdge(0, 3)
@@ -108,7 +110,7 @@ func TestPathToVertex(t *testing.T) {
 		// Graph: 0-1-3
 		//        |   |
 		//        2---4
-		g := NewGraph(5)
+		g := graphs.NewGraph(5)
 		g.AddEdge(0, 1)
 		g.AddEdge(0, 2)
 		g.AddEdge(1, 3)
@@ -129,7 +131,7 @@ func TestPathToVertex(t *testing.T) {
 	})
 
 	t.Run("invalid source vertex - negative", func(t *testing.T) {
-		g := NewGraph(3)
+		g := graphs.NewGraph(3)
 		g.AddEdge(0, 1)
 
 		path := PathToVertex(g, -1, 1)
@@ -138,7 +140,7 @@ func TestPathToVertex(t *testing.T) {
 	})
 
 	t.Run("invalid source vertex - out of bounds", func(t *testing.T) {
-		g := NewGraph(3)
+		g := graphs.NewGraph(3)
 		g.AddEdge(0, 1)
 
 		path := PathToVertex(g, 5, 1)
@@ -147,7 +149,7 @@ func TestPathToVertex(t *testing.T) {
 	})
 
 	t.Run("invalid target vertex - negative", func(t *testing.T) {
-		g := NewGraph(3)
+		g := graphs.NewGraph(3)
 		g.AddEdge(0, 1)
 
 		path := PathToVertex(g, 0, -1)
@@ -156,7 +158,7 @@ func TestPathToVertex(t *testing.T) {
 	})
 
 	t.Run("invalid target vertex - out of bounds", func(t *testing.T) {
-		g := NewGraph(3)
+		g := graphs.NewGraph(3)
 		g.AddEdge(0, 1)
 
 		path := PathToVertex(g, 0, 5)
@@ -165,7 +167,7 @@ func TestPathToVertex(t *testing.T) {
 	})
 
 	t.Run("single vertex graph", func(t *testing.T) {
-		g := NewGraph(1)
+		g := graphs.NewGraph(1)
 
 		path := PathToVertex(g, 0, 0)
 
@@ -173,7 +175,7 @@ func TestPathToVertex(t *testing.T) {
 	})
 
 	t.Run("empty graph", func(t *testing.T) {
-		g := NewGraph(0)
+		g := graphs.NewGraph(0)
 
 		path := PathToVertex(g, 0, 0)
 
@@ -182,7 +184,7 @@ func TestPathToVertex(t *testing.T) {
 
 	t.Run("linear chain - forward", func(t *testing.T) {
 		// Graph: 0-1-2-3-4
-		g := NewGraph(5)
+		g := graphs.NewGraph(5)
 		for i := 0; i < 4; i++ {
 			g.AddEdge(i, i+1)
 		}
@@ -195,7 +197,7 @@ func TestPathToVertex(t *testing.T) {
 
 	t.Run("linear chain - backward", func(t *testing.T) {
 		// Graph: 0-1-2-3-4
-		g := NewGraph(5)
+		g := graphs.NewGraph(5)
 		for i := 0; i < 4; i++ {
 			g.AddEdge(i, i+1)
 		}
@@ -208,7 +210,7 @@ func TestPathToVertex(t *testing.T) {
 
 	t.Run("path validation", func(t *testing.T) {
 		// Create a more complex graph and validate path properties
-		g := NewGraph(6)
+		g := graphs.NewGraph(6)
 		g.AddEdge(0, 1)
 		g.AddEdge(0, 2)
 		g.AddEdge(1, 3)
@@ -241,7 +243,7 @@ func TestPathToVertex(t *testing.T) {
 }
 
 // Helper function to check if two vertices are connected
-func isConnected(g *Graph, v, w int) bool {
+func isConnected(g *graphs.Graph, v, w int) bool {
 	for _, neighbor := range g.Adjacent(v) {
 		if neighbor == w {
 			return true

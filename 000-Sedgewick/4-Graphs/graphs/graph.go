@@ -1,4 +1,4 @@
-package p4Graphs
+package graphs
 
 import (
 	"bufio"

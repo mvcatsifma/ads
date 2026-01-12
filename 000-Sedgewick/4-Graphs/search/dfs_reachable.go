@@ -1,4 +1,6 @@
-package p4Graphs
+package search
+
+import "leetcode/000-Sedgewick/4-Graphs/graphs"
 
 // ReachableVertices finds all vertices reachable from a source vertex using DFS.
 // Returns a boolean array indicating reachability and the total count of reachable vertices.
@@ -17,7 +19,7 @@ package p4Graphs
 //
 // Time Complexity: O(V + E) where V is vertices and E is edges (DFS traversal).
 // Space Complexity: O(V) for marked array and recursion stack.
-func ReachableVertices(g *Graph, source int) ([]bool, int) {
+func ReachableVertices(g *graphs.Graph, source int) ([]bool, int) {
 	// Input validation: check source vertex bounds
 	if source < 0 || source >= g.V {
 		return make([]bool, g.V), 0 // Return empty result for invalid input

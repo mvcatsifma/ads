@@ -1,14 +1,16 @@
-package p4Graphs
+package search
 
 import (
 	"testing"
+
+	"leetcode/000-Sedgewick/4-Graphs/graphs"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestReachableVertices(t *testing.T) {
 	t.Run("single vertex graph", func(t *testing.T) {
-		g := NewGraph(1)
+		g := graphs.NewGraph(1)
 
 		marked, count := ReachableVertices(g, 0)
 
@@ -19,7 +21,7 @@ func TestReachableVertices(t *testing.T) {
 	t.Run("disconnected graph", func(t *testing.T) {
 		// Graph: 0  1-2  3
 		//        (isolated vertices)
-		g := NewGraph(4)
+		g := graphs.NewGraph(4)
 		g.AddEdge(1, 2)
 
 		marked, count := ReachableVertices(g, 0)
@@ -33,7 +35,7 @@ func TestReachableVertices(t *testing.T) {
 		// Graph: 0-1-2
 		//          |
 		//          3
-		g := NewGraph(4)
+		g := graphs.NewGraph(4)
 		g.AddEdge(0, 1)
 		g.AddEdge(1, 2)
 		g.AddEdge(1, 3)
@@ -48,7 +50,7 @@ func TestReachableVertices(t *testing.T) {
 	t.Run("partially connected graph", func(t *testing.T) {
 		// Graph: 0-1  2-3-4
 		//        (two separate components)
-		g := NewGraph(5)
+		g := graphs.NewGraph(5)
 		g.AddEdge(0, 1)
 		g.AddEdge(2, 3)
 		g.AddEdge(3, 4)
@@ -70,7 +72,7 @@ func TestReachableVertices(t *testing.T) {
 		// Graph: 0-1
 		//        |/|
 		//        2-3 (cycle)
-		g := NewGraph(4)
+		g := graphs.NewGraph(4)
 		g.AddEdge(0, 1)
 		g.AddEdge(0, 2)
 		g.AddEdge(1, 3)
@@ -85,7 +87,7 @@ func TestReachableVertices(t *testing.T) {
 
 	t.Run("linear chain", func(t *testing.T) {
 		// Graph: 0-1-2-3-4 (linear chain)
-		g := NewGraph(5)
+		g := graphs.NewGraph(5)
 		g.AddEdge(0, 1)
 		g.AddEdge(1, 2)
 		g.AddEdge(2, 3)
@@ -108,7 +110,7 @@ func TestReachableVertices(t *testing.T) {
 		// Graph: 1-0-2 (0 is center, connected to all others)
 		//          |
 		//          3
-		g := NewGraph(4)
+		g := graphs.NewGraph(4)
 		g.AddEdge(0, 1)
 		g.AddEdge(0, 2)
 		g.AddEdge(0, 3)
@@ -127,7 +129,7 @@ func TestReachableVertices(t *testing.T) {
 	})
 
 	t.Run("invalid source vertex - negative", func(t *testing.T) {
-		g := NewGraph(3)
+		g := graphs.NewGraph(3)
 		g.AddEdge(0, 1)
 
 		marked, count := ReachableVertices(g, -1)
@@ -138,7 +140,7 @@ func TestReachableVertices(t *testing.T) {
 	})
 
 	t.Run("invalid source vertex - out of bounds", func(t *testing.T) {
-		g := NewGraph(3)
+		g := graphs.NewGraph(3)
 		g.AddEdge(0, 1)
 
 		marked, count := ReachableVertices(g, 5)
@@ -149,7 +151,7 @@ func TestReachableVertices(t *testing.T) {
 	})
 
 	t.Run("empty graph", func(t *testing.T) {
-		g := NewGraph(0)
+		g := graphs.NewGraph(0)
 
 		marked, count := ReachableVertices(g, 0)
 
@@ -160,7 +162,7 @@ func TestReachableVertices(t *testing.T) {
 	t.Run("large connected graph", func(t *testing.T) {
 		// Create a larger graph to test performance
 		const size = 100
-		g := NewGraph(size)
+		g := graphs.NewGraph(size)
 
 		// Create a connected graph (chain)
 		for i := 0; i < size-1; i++ {

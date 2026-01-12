@@ -1,4 +1,6 @@
-package p4Graphs
+package search
+
+import "leetcode/000-Sedgewick/4-Graphs/graphs"
 
 // PathToVertex finds a path from source vertex s to target vertex v using DFS.
 // Returns the path as a slice of vertices from source to target, or nil if no path exists.
@@ -16,7 +18,7 @@ package p4Graphs
 //
 // Time Complexity: O(V + E) where V is vertices and E is edges (DFS traversal).
 // Space Complexity: O(V) for marked array, edgeTo array, and recursion stack.
-func PathToVertex(g *Graph, s int, v int) []int {
+func PathToVertex(g *graphs.Graph, s int, v int) []int {
 	// Input validation: check vertex bounds
 	if s >= g.V || s < 0 || v >= g.V || v < 0 {
 		return nil
