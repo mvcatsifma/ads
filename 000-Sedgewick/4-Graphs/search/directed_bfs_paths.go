@@ -5,7 +5,7 @@ import (
 )
 
 // ShortestPathToVertexDirected finds the shortest path from source s to target t in a directed graph.
-// Uses BFS to guarantee shortest path in unweighted graphs (minimum number of edges).
+// Uses BFS to guarantee the shortest path in unweighted graphs (minimum number of edges).
 // Returns the path as a slice of vertices, or nil if no path exists.
 // Time: O(V + E), Space: O(V) where V = vertices, E = edges
 func ShortestPathToVertexDirected(g *graphs.Digraph, s int, t int) []int {
