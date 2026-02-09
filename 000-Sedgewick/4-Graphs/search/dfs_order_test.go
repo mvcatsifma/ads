@@ -220,28 +220,6 @@ func TestDepthFirstOrder(t *testing.T) {
 	})
 }
 
-// Helper function to convert queue to slice for testing
-func queueToSlice(q *IntQueue) []int {
-	var result []int
-	for !q.IsEmpty() {
-		result = append(result, q.Dequeue())
-	}
-	return result
-}
-
-// Helper function to convert stack to slice for testing
-func stackToSlice(s *IntStack) []int {
-	var result []int
-	for !s.IsEmpty() {
-		val, err := s.Pop()
-		if err != nil {
-			break // Stop if error (shouldn't happen if IsEmpty() works correctly)
-		}
-		result = append(result, val)
-	}
-	return result
-}
-
 // Helper function to find index of element in slice
 func findIndex(slice []int, target int) int {
 	for i, v := range slice {
