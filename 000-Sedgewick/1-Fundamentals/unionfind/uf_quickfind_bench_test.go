@@ -6,7 +6,7 @@ import (
 
 func BenchmarkQuickFind_Find(b *testing.B) {
 	// Quick-Find has O(1) find - should be very fast
-	uf := NewUnionFind(10000)
+	uf := NewQuickFind(10000)
 	for i := 0; i < 9999; i++ {
 		uf.union(i, i+1)
 	}
@@ -25,7 +25,7 @@ func BenchmarkQuickFind_Union(b *testing.B) {
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		uf := NewUnionFind(size)
+		uf := NewQuickFind(size)
 		uf.union(0, size-1)
 		count += uf.count // Use the result
 	}

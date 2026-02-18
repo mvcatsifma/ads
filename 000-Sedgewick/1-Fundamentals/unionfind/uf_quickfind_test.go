@@ -6,10 +6,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestUnionFind(t *testing.T) {
+func TestQuickFind(t *testing.T) {
 
 	t.Run("initialization", func(t *testing.T) {
-		uf := NewUnionFind(5)
+		uf := NewQuickFind(5)
 
 		assert.Equal(t, 5, uf.count, "Should have 5 components initially")
 		assert.Len(t, uf.id, 5, "ID array should have 5 elements")
@@ -21,7 +21,7 @@ func TestUnionFind(t *testing.T) {
 	})
 
 	t.Run("find returns component id", func(t *testing.T) {
-		uf := NewUnionFind(5)
+		uf := NewQuickFind(5)
 
 		// Initially, each element is its own component
 		for i := 0; i < 5; i++ {
@@ -30,7 +30,7 @@ func TestUnionFind(t *testing.T) {
 	})
 
 	t.Run("connected initially false", func(t *testing.T) {
-		uf := NewUnionFind(5)
+		uf := NewQuickFind(5)
 
 		// No elements should be connected initially
 		assert.False(t, uf.connected(0, 1), "0 and 1 should not be connected")
@@ -44,7 +44,7 @@ func TestUnionFind(t *testing.T) {
 	})
 
 	t.Run("union connects two elements", func(t *testing.T) {
-		uf := NewUnionFind(5)
+		uf := NewQuickFind(5)
 
 		uf.union(0, 1)
 
@@ -54,7 +54,7 @@ func TestUnionFind(t *testing.T) {
 	})
 
 	t.Run("union is transitive", func(t *testing.T) {
-		uf := NewUnionFind(5)
+		uf := NewQuickFind(5)
 
 		uf.union(0, 1)
 		uf.union(1, 2)
@@ -67,7 +67,7 @@ func TestUnionFind(t *testing.T) {
 	})
 
 	t.Run("union already connected elements", func(t *testing.T) {
-		uf := NewUnionFind(5)
+		uf := NewQuickFind(5)
 
 		uf.union(0, 1)
 		initialCount := uf.count
@@ -79,7 +79,7 @@ func TestUnionFind(t *testing.T) {
 	})
 
 	t.Run("multiple unions create larger component", func(t *testing.T) {
-		uf := NewUnionFind(10)
+		uf := NewQuickFind(10)
 
 		// Create component {0,1,2,3,4}
 		uf.union(0, 1)
@@ -100,7 +100,7 @@ func TestUnionFind(t *testing.T) {
 	})
 
 	t.Run("separate components", func(t *testing.T) {
-		uf := NewUnionFind(8)
+		uf := NewQuickFind(8)
 
 		// Create component {0,1,2}
 		uf.union(0, 1)
@@ -127,7 +127,7 @@ func TestUnionFind(t *testing.T) {
 	})
 
 	t.Run("merge two components", func(t *testing.T) {
-		uf := NewUnionFind(6)
+		uf := NewQuickFind(6)
 
 		// Create component {0,1,2}
 		uf.union(0, 1)
@@ -151,7 +151,7 @@ func TestUnionFind(t *testing.T) {
 	})
 
 	t.Run("all elements in one component", func(t *testing.T) {
-		uf := NewUnionFind(5)
+		uf := NewQuickFind(5)
 
 		// Connect all elements
 		uf.union(0, 1)
@@ -170,7 +170,7 @@ func TestUnionFind(t *testing.T) {
 	})
 
 	t.Run("count decreases correctly", func(t *testing.T) {
-		uf := NewUnionFind(10)
+		uf := NewQuickFind(10)
 
 		assert.Equal(t, 10, uf.count, "Should start with 10 components")
 
@@ -188,7 +188,7 @@ func TestUnionFind(t *testing.T) {
 	})
 
 	t.Run("single element", func(t *testing.T) {
-		uf := NewUnionFind(1)
+		uf := NewQuickFind(1)
 
 		assert.Equal(t, 1, uf.count, "Should have 1 component")
 		assert.True(t, uf.connected(0, 0), "Element should be connected to itself")

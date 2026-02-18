@@ -1,6 +1,6 @@
 package unionfind
 
-// UnionFind implements the union-find (disjoint-set) data structure.
+// QuickFind implements the union-find (disjoint-set) data structure.
 // It efficiently tracks a partition of elements into disjoint sets and supports
 // two primary operations: union (merge sets) and find (identify set membership).
 //
@@ -17,22 +17,22 @@ package unionfind
 //   - Connected: O(α(n)) amortized
 //
 // Space Complexity: O(n) where n is the number of elements
-type UnionFind struct {
+type QuickFind struct {
 	id    []int // Component identifier for each element (id[i] = parent of i)
 	count int   // Number of disjoint components
 }
 
-// NewUnionFind creates a new union-find data structure with n elements.
+// NewQuickFind creates a new union-find data structure with n elements.
 // Initially, each element is in its own component (n separate components).
 //
 // Example:
-//   uf := NewUnionFind(5)  // Creates components {0}, {1}, {2}, {3}, {4}
-func NewUnionFind(n int) *UnionFind {
+//   uf := NewQuickFind(5)  // Creates components {0}, {1}, {2}, {3}, {4}
+func NewQuickFind(n int) *QuickFind {
 	id := make([]int, n)
 	for i := range id {
 		id[i] = i // Each element starts in its own component
 	}
-	return &UnionFind{
+	return &QuickFind{
 		id:    id,
 		count: n,
 	}
@@ -48,7 +48,7 @@ func NewUnionFind(n int) *UnionFind {
 //   uf.connected(0, 3)  // returns false (different component ids)
 //
 // Time: O(1) - constant time comparison
-func (u *UnionFind) connected(p int, q int) bool {
+func (u *QuickFind) connected(p int, q int) bool {
 	return u.id[p] == u.id[q]
 }
 
@@ -67,7 +67,7 @@ func (u *UnionFind) connected(p int, q int) bool {
 // enabling O(1) find operations at the cost of O(n) union operations.
 //
 // Time: O(n) - must scan entire array to update component identifiers
-func (u *UnionFind) union(p int, q int) {
+func (u *QuickFind) union(p int, q int) {
 	pID := u.find(p)
 	qID := u.find(q)
 
@@ -95,6 +95,6 @@ func (u *UnionFind) union(p int, q int) {
 //   uf.find(3)      // returns different id (different component)
 //
 // Time: O(1) - constant time array access
-func (u *UnionFind) find(p int) int {
+func (u *QuickFind) find(p int) int {
 	return u.id[p]
 }
