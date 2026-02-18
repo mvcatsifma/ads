@@ -1,8 +1,12 @@
 package unionfind
 
-// QuickFind implements the union-find (disjoint-set) data structure.
-// It efficiently tracks a partition of elements into disjoint sets and supports
+// QuickFind implements the union-find (disjoint-set) data structure using eager approach.
+// It tracks a partition of elements into disjoint sets and supports
 // two primary operations: union (merge sets) and find (identify set membership).
+//
+// Algorithm: Quick-Find (eager/flat approach)
+// All elements in the same component share the same component identifier.
+// This enables O(1) find at the cost of O(n) union.
 //
 // Applications:
 //   - Network connectivity (are two computers connected?)
@@ -11,26 +15,31 @@ package unionfind
 //   - Least common ancestor problems
 //   - Image processing (connected components)
 //
-// Time Complexity (with path compression and union by rank):
-//   - Find: O(α(n)) amortized, where α is inverse Ackermann (effectively constant)
-//   - Union: O(α(n)) amortized
-//   - Connected: O(α(n)) amortized
+// Time Complexity (Quick-Find):
+//   - Find: O(1) - direct array access
+//   - Union: O(n) - must update all elements in component
+//   - Connected: O(1) - two array accesses
 //
 // Space Complexity: O(n) where n is the number of elements
+//
+// Trade-off: Optimized for find-heavy workloads where unions are rare.
+// For union-heavy workloads, consider Quick-Union with optimizations instead.
 type QuickFind struct {
-	id    []int // Component identifier for each element (id[i] = parent of i)
+	id    []int // Component identifier for each element (all elements in same component have same id)
 	count int   // Number of disjoint components
 }
 
-// NewQuickFind creates a new union-find data structure with n elements.
+// NewQuickFind creates a new Quick-Find data structure with n elements.
 // Initially, each element is in its own component (n separate components).
+// Each element's component identifier is set to its own index.
 //
 // Example:
 //   uf := NewQuickFind(5)  // Creates components {0}, {1}, {2}, {3}, {4}
+//                          // id = [0, 1, 2, 3, 4]
 func NewQuickFind(n int) *QuickFind {
 	id := make([]int, n)
 	for i := range id {
-		id[i] = i // Each element starts in its own component
+		id[i] = i // Each element is its own component identifier
 	}
 	return &QuickFind{
 		id:    id,
@@ -58,9 +67,10 @@ func (u *QuickFind) connected(p int, q int) bool {
 // Decrements the component count by 1 if a merge occurs.
 //
 // Example:
-//   uf.union(0, 1)  // Merges components {0} and {1} into {0,1}
-//   uf.union(2, 3)  // Merges components {2} and {3} into {2,3}
-//   uf.union(1, 2)  // Merges {0,1} and {2,3} into {0,1,2,3}
+//   Initial: id = [0, 1, 2, 3, 4]
+//   uf.union(0, 1)  // id = [1, 1, 2, 3, 4] - all elements with id 0 become 1
+//   uf.union(2, 3)  // id = [1, 1, 3, 3, 4] - all elements with id 2 become 3
+//   uf.union(1, 2)  // id = [3, 3, 3, 3, 4] - all elements with id 1 become 3
 //
 // Implementation: Scans entire array and updates all elements with pID to qID.
 // This ensures all elements in the merged component share the same identifier,
@@ -72,9 +82,10 @@ func (u *QuickFind) union(p int, q int) {
 	qID := u.find(q)
 
 	if pID == qID {
-		return
+		return // Already in same component
 	}
 
+	// Update all elements with pID to have qID
 	for i, v := range u.id {
 		if v == pID {
 			u.id[i] = qID
@@ -97,4 +108,18 @@ func (u *QuickFind) union(p int, q int) {
 // Time: O(1) - constant time array access
 func (u *QuickFind) find(p int) int {
 	return u.id[p]
+}
+
+// Count returns the number of disjoint components.
+// Starts at n (all elements separate) and decreases with each union.
+//
+// Example:
+//   uf := NewQuickFind(5)  // count = 5
+//   uf.union(0, 1)         // count = 4
+//   uf.union(2, 3)         // count = 3
+//   uf.Count()             // returns 3
+//
+// Time: O(1)
+func (u *QuickFind) Count() int {
+	return u.count
 }
