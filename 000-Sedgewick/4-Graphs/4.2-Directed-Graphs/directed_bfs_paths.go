@@ -1,5 +1,7 @@
 package directed
 
+import "leetcode/lib"
+
 // ShortestPathToVertexDirected finds the shortest path from source s to target t in a directed graph.
 // Uses BFS to guarantee the shortest path in unweighted graphs (minimum number of edges).
 // Returns the path as a slice of vertices, or nil if no path exists.
@@ -11,7 +13,7 @@ func ShortestPathToVertexDirected(g *Digraph, s int, t int) []int {
 	}
 
 	// BFS data structures
-	queue := &IntQueue{}        // Queue for BFS traversal
+	queue := &lib.IntQueue{}    // Queue for BFS traversal
 	marked := make([]bool, g.V) // Track visited vertices
 	pathTo := make([]int, g.V)  // Parent pointers for path reconstruction
 

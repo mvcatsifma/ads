@@ -1,5 +1,7 @@
 package directed
 
+import "leetcode/lib"
+
 
 // Topological performs topological sorting on a directed graph.
 // Returns whether a valid topological ordering exists (DAG check) and the three DFS orderings.
@@ -23,7 +25,7 @@ func Topological(g *Digraph) (hasOrder bool, actualPre []int, actualPost []int, 
 }
 
 // Helper function to convert queue to slice
-func queueToSlice(q *IntQueue) []int {
+func queueToSlice(q *lib.IntQueue) []int {
 	var result []int
 	for !q.IsEmpty() {
 		result = append(result, q.Dequeue())
@@ -32,11 +34,11 @@ func queueToSlice(q *IntQueue) []int {
 }
 
 // Helper function to convert stack to slice with error handling
-func stackToSlice(s *IntStack) []int {
+func stackToSlice(s *lib.IntStack) []int {
 	var result []int
 	for !s.IsEmpty() {
-		val, err := s.Pop()
-		if err != nil {
+		val, ok := s.Pop()
+		if !ok {
 			break // Stop if error (shouldn't happen if IsEmpty() works correctly)
 		}
 		result = append(result, val)

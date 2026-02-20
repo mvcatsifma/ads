@@ -1,5 +1,7 @@
 package undirected
 
+import "leetcode/lib"
+
 
 // ShortestPathToVertex finds the shortest path from source vertex s to target vertex t using BFS.
 // In an unweighted graph, BFS guarantees the shortest path (minimum number of edges).
@@ -32,7 +34,7 @@ func ShortestPathToVertex(g *Graph, s int, t int) []int {
 	edgeTo := make([]int, g.V)  // Track parent of each vertex in BFS tree
 
 	// BFS using queue to explore vertices level by level
-	queue := &IntQueue{}
+	queue := &lib.IntQueue{}
 	queue.Enqueue(s)
 	marked[s] = true
 
@@ -68,35 +70,4 @@ func ShortestPathToVertex(g *Graph, s int, t int) []int {
 	}
 
 	return path
-}
-
-// IntQueue implements a simple FIFO queue for BFS traversal using head pointer optimization.
-// Provides efficient O(1) enqueue and dequeue operations.
-type IntQueue struct {
-	items []int // Underlying slice storing queue elements
-	head  int   // Index of first element (front of queue)
-}
-
-// Enqueue adds an item to the back of the queue.
-// Time Complexity: O(1) amortized.
-func (q *IntQueue) Enqueue(item int) {
-	q.items = append(q.items, item)
-}
-
-// Dequeue removes and returns the item from the front of the queue.
-// Assumes queue is not empty (caller should check IsEmpty() first).
-// Time Complexity: O(1).
-func (q *IntQueue) Dequeue() int {
-	if q.IsEmpty() {
-		panic("dequeue from empty queue")
-	}
-	item := q.items[q.head]
-	q.head++
-	return item
-}
-
-// IsEmpty returns true if the queue contains no elements.
-// Time Complexity: O(1).
-func (q *IntQueue) IsEmpty() bool {
-	return q.head == len(q.items)
 }

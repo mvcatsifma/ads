@@ -18,8 +18,8 @@ func TestDepthFirstOrder(t *testing.T) {
 		assert.True(t, reverse.IsEmpty(), "Reverse post-order should be empty")
 
 		// Test that popping from empty stack returns error
-		_, err := reverse.Pop()
-		assert.Error(t, err, "Popping from empty stack should return error")
+		_, ok := reverse.Pop()
+		assert.False(t, ok, "Popping from empty stack should return false")
 	})
 
 	t.Run("single vertex no edges", func(t *testing.T) {
@@ -33,8 +33,8 @@ func TestDepthFirstOrder(t *testing.T) {
 		assert.Equal(t, 0, post.Dequeue(), "Post-order should contain vertex 0")
 		assert.True(t, post.IsEmpty(), "Post-order should have only one element")
 
-		val, err := reverse.Pop()
-		assert.NoError(t, err, "Pop should not return error")
+		val, ok := reverse.Pop()
+		assert.True(t, ok, "Pop should succeed")
 		assert.Equal(t, 0, val, "Reverse should contain vertex 0")
 		assert.True(t, reverse.IsEmpty(), "Reverse should have only one element")
 	})
