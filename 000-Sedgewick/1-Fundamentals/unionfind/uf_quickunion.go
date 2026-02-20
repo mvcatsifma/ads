@@ -1,6 +1,6 @@
 package unionfind
 
-// QuickUnion implements the union-find (disjoint-set) data structure using a tree-based approach.
+// WeightedQuickUnion implements the union-find (disjoint-set) data structure using a tree-based approach.
 // It tracks a partition of elements into disjoint sets and supports
 // two primary operations: union (merge sets) and find (identify set membership).
 //
