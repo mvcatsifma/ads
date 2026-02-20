@@ -62,7 +62,43 @@ When given a LeetCode problem number, create a new problem directory following t
    - Use `lib.BuildTree()`, `lib.CreateLinkedList()`, etc. for test data setup
    - For tree problems, use `math.MaxInt` to represent nil nodes
 
-5. **Verify setup**:
+5. **Create `notes.md`**:
+   - Track analysis and approach development
+   - Format:
+     ```markdown
+     # Notes
+
+     ## Time Complexity
+     - TODO: Analyze time complexity
+     - Brute force: TODO
+     - Optimized: TODO
+
+     ## Space Complexity
+     - TODO: Analyze space complexity
+     - Brute force: TODO
+     - Optimized: TODO
+
+     ## Edge Cases
+     - [ ] TODO: Empty input
+     - [ ] TODO: Single element
+     - [ ] TODO: Duplicates
+     - [ ] TODO: Negative numbers
+     - [ ] TODO: Maximum constraints
+     - [ ] TODO: Minimum constraints
+
+     ## Brute Force Baseline
+     TODO: Describe naive approach
+     - Algorithm:
+     - Time: O(?)
+     - Space: O(?)
+     - Why it works:
+     - Limitations:
+
+     ## Optimizations
+     TODO: Better approaches
+     ```
+
+6. **Verify setup**:
    - Run `go test -v ./{problem-directory}/` to ensure it compiles
    - Test should fail since function is not implemented yet
 
