@@ -32,10 +32,27 @@ func SelectionSort(arr []int) {
 }
 
 // InsertionSort sorts an array using the insertion sort algorithm.
-// Time complexity: O(n²) worst case, O(n) best case (already sorted)
-// Space complexity: O(1) - in-place sorting
+//
+// Algorithm: Like sorting playing cards in your hand - pick each element
+// and insert it into its correct position among the already sorted elements
+// by repeatedly swapping it leftward until it's in place.
+//
+// Time complexity: O(n²) worst case (reverse sorted), O(n) best case (already sorted)
+// Space complexity: O(1) - in-place sorting, only uses constant extra space
+//
+// Best for: Small arrays or nearly sorted data (very efficient for partially sorted arrays)
 func InsertionSort(arr []int) {
-	// TODO: Implement insertion sort
+	n := len(arr)
+
+	// Start from second element (first element is trivially sorted)
+	for i := 1; i < n; i++ {
+		// Insert arr[i] into the sorted portion arr[0:i]
+		// Move leftward while current element is smaller than its left neighbor
+		for j := i; j > 0 && arr[j] < arr[j-1]; j-- {
+			// Swap current element with its left neighbor
+			arr[j], arr[j-1] = arr[j-1], arr[j]
+		}
+	}
 }
 
 // ShellSort sorts an array using the shell sort algorithm.
