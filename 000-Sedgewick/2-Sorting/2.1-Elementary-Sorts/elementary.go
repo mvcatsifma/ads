@@ -56,8 +56,40 @@ func InsertionSort(arr []int) {
 }
 
 // ShellSort sorts an array using the shell sort algorithm.
-// Time complexity: O(n^(3/2)) average case (depends on gap sequence)
-// Space complexity: O(1) - in-place sorting
+//
+// Algorithm: An optimized version of insertion sort that allows exchanges of
+// elements that are far apart. It works by comparing elements separated by a gap
+// (h-sorting), then progressively reducing the gap until it becomes 1 (regular insertion sort).
+// The array becomes increasingly sorted with each pass, making the final insertion sort very fast.
+//
+// Time complexity: O(n^(3/2)) average case using Knuth's sequence (3h+1: 1, 4, 13, 40, 121...)
+// Space complexity: O(1) - in-place sorting, only uses constant extra space
+//
+// Best for: Medium-sized arrays where O(n log n) algorithms are overkill but O(n²) is too slow
 func ShellSort(arr []int) {
-	// TODO: Implement shell sort
+	n := len(arr)
+
+	// Calculate initial gap using Knuth's sequence: h = 3h + 1
+	// Sequence: 1, 4, 13, 40, 121, 364, 1093...
+	// Start with largest gap less than n/3
+	h := 1
+	for h < n/3 {
+		h = 3*h + 1
+	}
+
+	// Perform h-sorting with decreasing gaps
+	for h >= 1 {
+		// h-sort the array (insertion sort with gap h)
+		for i := h; i < n; i++ {
+			// Insert arr[i] among arr[i-h], arr[i-2h], arr[i-3h]...
+			// Move leftward by h steps while current element is smaller
+			for j := i; j >= h && arr[j] < arr[j-h]; j -= h {
+				// Swap elements that are h positions apart
+				arr[j], arr[j-h] = arr[j-h], arr[j]
+			}
+		}
+		// Reduce gap by dividing by 3 (inverse of 3h+1)
+		h = h / 3
+	}
+	// Final pass with h=1 is regular insertion sort on a nearly sorted array
 }
