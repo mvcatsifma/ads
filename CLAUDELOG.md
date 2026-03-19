@@ -28,3 +28,22 @@
 - Recreated problem 684 "Redundant Connection" with complete structure (main.go, tests, readme, notes.md)
 
 ---
+
+## 2026-03-04 to 2026-03-19
+
+### Sorting Algorithms (Sedgewick Ch. 2)
+
+**Elementary Sorts** (`000-Sedgewick/2-Sorting/2.1-Elementary-Sorts/`)
+- Set up directory with SelectionSort stub, tests, and benchmarks (2026-03-04)
+- Implemented InsertionSort with detailed comments (2026-03-04)
+- Implemented ShellSort with detailed comments (2026-03-04)
+
+**Mergesort** (`000-Sedgewick/2-Sorting/2.2-Mergesort/`)
+- Implemented MergeSort (top-down) with tests and benchmarks (2026-03-10)
+- Implemented MergeSortBU (bottom-up) with detailed comments (2026-03-12)
+
+**Repository**
+- Added TODO section to README (2026-03-18)
+- Prepared repo for public GitHub: updated README with full directory structure and run instructions (2026-03-19)
+
+---
