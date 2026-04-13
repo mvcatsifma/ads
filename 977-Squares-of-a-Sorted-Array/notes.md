@@ -30,6 +30,14 @@ Square each element, then sort the result array.
 - Why it works: Straightforward - squares then sorts
 - Limitations: Not optimal - doesn't use the fact that input is already sorted
 
+**Benchmark Results (Apple M3 Pro):**
+```
+BenchmarkSortedSquares-12    	17430738	        69.13 ns/op	     120 B/op	       4 allocs/op
+```
+- 69.13 ns per operation
+- 120 bytes allocated per operation
+- 4 allocations per operation
+
 ## Optimizations
 **Key insight:** Input array is sorted, so negative numbers are on left, positive on right.
 After squaring, the largest values come from the edges (most negative or most positive).
