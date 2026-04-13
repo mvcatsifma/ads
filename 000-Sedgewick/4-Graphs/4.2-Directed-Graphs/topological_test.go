@@ -191,15 +191,15 @@ func TestTopological(t *testing.T) {
 	})
 
 	t.Run("isolated vertices", func(t *testing.T) {
-		// TODO: Test expectation may be incorrect - actual returns [2, 1, 0] but test expects [0, 1, 2]
-		// DFS order is implementation-dependent for isolated vertices
 		// Graph: 0, 1, 2 (no edges)
+		// DFS visits vertices in order 0→1→2; each finishes immediately and is pushed onto the stack.
+		// Reverse post-order pops the stack: [2, 1, 0] — last finished = first in topological order.
 		g := NewDigraph(3)
 
 		hasOrder, _, _, reverse := Topological(g)
 
 		assert.True(t, hasOrder, "Isolated vertices should have valid topological ordering")
-		assert.Equal(t, []int{0, 1, 2}, reverse, "Isolated vertices should be in natural order")
+		assert.Equal(t, []int{2, 1, 0}, reverse, "Reverse post-order: last vertex finished appears first")
 		assert.Len(t, reverse, 3, "All vertices should be present")
 	})
 
