@@ -20,8 +20,15 @@ This repository contains LeetCode problem solutions and algorithm implementation
   - `graph.go`: Graph utilities (`GraphNode`, `CreateGraphFromAdjList`)
 
 - **`000-Sedgewick/`**: Implementations from Sedgewick's "Algorithms" textbook organized by chapter:
-  - `1-Fundamentals/unionfind/`: Union-Find data structure implementations (QuickFind, QuickUnion, WeightedQuickUnion)
+  - `1-Fundamentals/1.5-UnionFind/`: Union-Find data structure implementations (QuickFind, QuickUnion, WeightedQuickUnion)
+  - `2-Sorting/`: Sorting algorithms
+    - `2.1-Elementary-Sorts/`: SelectionSort, InsertionSort, ShellSort
+    - `2.2-Mergesort/`: MergeSort (top-down), MergeSortBU (bottom-up)
+    - `2.3-Quicksort/`: QuickSort, QuickSort3Way
+    - `2.4-Priority-Queues/`: (TODO)
   - `4-Graphs/`: Graph algorithms
+    - `4.1-Undirected-Graphs/`: BFS, DFS, Connected Components
+    - `4.2-Directed-Graphs/`: Directed BFS/DFS, Topological Sort, SCC
 
 - **`000-*` directories**: Organized study materials:
   - `000-Backtracking/`: Backtracking algorithms
