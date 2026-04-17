@@ -11,13 +11,14 @@ package quicksort
 // - Space: O(lg N) - recursion stack
 // - Stable: No
 // - In-place: Yes
-// - Notes: Fastest general-purpose sort in practice
+// - Notes: Fastest general-purpose sort in practice (39% fewer compares than merge sort, excellent cache locality)
 //
 // Use Quick Sort when:
 // - Average case performance is priority (fastest in practice)
 // - Space is limited (in-place, no auxiliary array)
 // - Stability is not required
 // - Input can be shuffled/randomized to avoid worst case
+// - Note: If stability is important and space is available, merge sort might be the best choice
 func QuickSort(arr []int) {
 	sort(arr, 0, len(arr)-1)
 }
