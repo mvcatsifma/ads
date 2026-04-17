@@ -168,6 +168,37 @@ For tree problems, use `math.MaxInt` to represent nil nodes in array representat
 - `github.com/stretchr/testify`: Assertions and test utilities
 - `github.com/google/go-cmp`: Deep equality comparisons in tests
 
+## Git Commit Guidelines
+
+**Keep commit messages concise and focused:**
+
+Format:
+```
+Brief summary (50 chars or less)
+
+Optional body with key points:
+- What the change does (algorithm/feature description)
+- Test coverage summary if relevant
+```
+
+**Good example:**
+```
+Implement quickselect algorithm with randomization
+
+Quickselect finds kth smallest element using quicksort partitioning,
+only processes one partition per iteration. Shuffles array and uses
+random pivot selection for probabilistic guarantee.
+
+Test suite covers min/max/median, edge cases, duplicates, bounds checking,
+and partial order preservation (14 tests)
+```
+
+**Avoid:**
+- Performance metrics (time/space complexity - belongs in code comments)
+- Long lists of implementation details
+- Line-by-line change descriptions
+- Redundant information already visible in the diff
+
 ## CI/CD
 
 GitHub Actions workflow (`.github/workflows/go.yml`) runs on push and PR to main:
