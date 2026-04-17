@@ -6,12 +6,18 @@ package quicksort
 // the array so all elements less than the pivot are on its left and all greater
 // elements are on its right, then recursively sorts the left and right subarrays.
 //
-// Time complexity: O(n log n) average case, O(n²) worst case (already sorted array)
-// Space complexity: O(log n) - recursion stack depth
+// Performance characteristics:
+// - Time: O(N lg N) - probabilistic guarantee (average case)
+// - Space: O(lg N) - recursion stack
+// - Stable: No
+// - In-place: Yes
+// - Notes: Fastest general-purpose sort in practice
 //
-// Best for: General-purpose sorting with in-place partitioning. Fastest in practice
-// due to cache efficiency and low constant factors. Use 3-way variant for data with
-// many duplicates. Randomize input or use median-of-3 to avoid worst case.
+// Use Quick Sort when:
+// - Average case performance is priority (fastest in practice)
+// - Space is limited (in-place, no auxiliary array)
+// - Stability is not required
+// - Input can be shuffled/randomized to avoid worst case
 func QuickSort(arr []int) {
 	sort(arr, 0, len(arr)-1)
 }
@@ -22,12 +28,17 @@ func QuickSort(arr []int) {
 // elements less than pivot, elements equal to pivot, and elements greater than pivot.
 // This is Dijkstra's 3-way partitioning scheme, also known as the Dutch National Flag problem.
 //
-// Time complexity: O(n log n) average case, O(n) when all elements are equal
-// Space complexity: O(log n) - recursion stack depth
+// Performance characteristics:
+// - Time: Between N and N lg N - depends on duplicate keys
+// - Space: O(lg N) - recursion stack
+// - Stable: No
+// - In-place: Yes
+// - Notes: Linear time when many duplicates (O(N) for all equal)
 //
-// Best for: Arrays with many duplicate values. While standard quicksort degrades to O(n²)
-// on arrays with all equal elements, 3-way partitioning handles this in O(n) time.
-// Real-world data often has duplicate keys (names, dates, categories, etc.)
+// Use 3-way Quick Sort when:
+// - Many duplicate keys are expected
+// - Same benefits as regular quicksort
+// - Data has low cardinality (few distinct values)
 func QuickSort3Way(arr []int) {
 	sort3Way(arr, 0, len(arr)-1)
 }

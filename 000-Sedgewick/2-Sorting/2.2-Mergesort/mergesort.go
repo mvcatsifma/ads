@@ -6,11 +6,18 @@ package mergesort
 // in half until reaching single-element subarrays, then merges them back together
 // in sorted order. Uses an auxiliary array to avoid expensive in-place merging.
 //
-// Time complexity: O(n log n) - always makes log(n) levels of splits with n work per level
-// Space complexity: O(n) - requires auxiliary array for merging (allocated once, reused)
+// Performance characteristics:
+// - Time: O(N lg N) - guaranteed regardless of input
+// - Space: O(N) - requires auxiliary array
+// - Stable: Yes
+// - In-place: No
+// - Notes: Guaranteed N lg N performance
 //
-// Best for: General-purpose sorting when O(n log n) guarantee is needed regardless of input.
-// Unlike QuickSort, performance is consistent but requires extra space.
+// Use Merge Sort when:
+// - Stability is required (preserves order of equal elements)
+// - Guaranteed worst-case O(N lg N) performance is needed
+// - Extra O(N) space is available
+// - Predictable performance matters more than average-case speed
 func MergeSort(arr []int) {
 	// Allocate auxiliary array once and reuse across all recursive calls
 	aux := make([]int, len(arr))
@@ -23,12 +30,17 @@ func MergeSort(arr []int) {
 // the bottom up. Starts by merging subarrays of size 1, then 2, then 4, and so on,
 // doubling the size with each pass until the entire array is sorted.
 //
-// Time complexity: O(n log n) - always, log(n) passes with n work per pass
-// Space complexity: O(n) - requires auxiliary array for merging
+// Performance characteristics:
+// - Time: O(N lg N) - guaranteed regardless of input
+// - Space: O(N) - requires auxiliary array
+// - Stable: Yes
+// - In-place: No
+// - Notes: Guaranteed N lg N performance, no recursion
 //
-// Best for: Situations where recursion is problematic (limited stack space) or when
-// better cache locality is desired. Same asymptotic performance as top-down but
-// avoids function call overhead.
+// Use Merge Sort (BU) when:
+// - Same as regular merge sort, but recursion is problematic
+// - Limited stack space or recursion depth restrictions
+// - Prefer iterative implementation
 func MergeSortBU(arr []int) {
 	n := len(arr)
 	// Allocate auxiliary array once

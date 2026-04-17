@@ -2,6 +2,19 @@ package priorityqueus
 
 // sort performs heapsort on arr using 1-indexed heap operations.
 // arr[0] is unused; actual elements are at indices 1 to len(arr)-1.
+//
+// Performance characteristics:
+// - Time: O(N lg N) - guaranteed regardless of input
+// - Space: O(1) - in-place sorting
+// - Stable: No
+// - In-place: Yes
+// - Notes: Guaranteed N lg N, in-place
+//
+// Use Heap Sort when:
+// - Guaranteed O(N lg N) performance is needed
+// - Space is extremely limited (in-place with O(1) extra space)
+// - Stability is not required
+// - Prefer heap sort over quicksort when worst-case guarantee matters
 func sort(arr []int) {
 	n := len(arr) - 1 // Exclude arr[0] (unused in 1-indexed heap)
 

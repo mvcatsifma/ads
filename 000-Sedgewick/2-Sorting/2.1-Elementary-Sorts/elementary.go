@@ -6,10 +6,17 @@ package elementary
 // and place it at the beginning. After each iteration, the sorted portion
 // grows by one element from the left.
 //
-// Time complexity: O(n²) - always makes n²/2 comparisons regardless of input order
-// Space complexity: O(1) - in-place sorting, only uses constant extra space
+// Performance characteristics:
+// - Time: O(N²) - always makes N²/2 comparisons regardless of input order
+// - Space: O(1) - in-place sorting
+// - Stable: No
+// - In-place: Yes
+// - Notes: Exactly N exchanges (minimal data movement)
 //
-// Best for: Small arrays or when minimizing swaps is important (exactly n swaps)
+// Use Selection Sort when:
+// - Minimizing write operations is critical (only N swaps)
+// - Working with hardware where writes are expensive
+// - Array is very small
 func SelectionSort(arr []int) {
 	n := len(arr)
 
@@ -37,10 +44,18 @@ func SelectionSort(arr []int) {
 // and insert it into its correct position among the already sorted elements
 // by repeatedly swapping it leftward until it's in place.
 //
-// Time complexity: O(n²) worst case (reverse sorted), O(n) best case (already sorted)
-// Space complexity: O(1) - in-place sorting, only uses constant extra space
+// Performance characteristics:
+// - Time: Between N and N² - depends on input order
+// - Space: O(1) - in-place sorting
+// - Stable: Yes
+// - In-place: Yes
+// - Notes: Linear time for nearly sorted data
 //
-// Best for: Small arrays or nearly sorted data (very efficient for partially sorted arrays)
+// Use Insertion Sort when:
+// - Array size < 10-15 elements
+// - Array is nearly sorted (best case: O(N))
+// - Stability is required and array is small
+// - As optimization for recursive sorts on small subarrays
 func InsertionSort(arr []int) {
 	n := len(arr)
 
@@ -62,10 +77,18 @@ func InsertionSort(arr []int) {
 // (h-sorting), then progressively reducing the gap until it becomes 1 (regular insertion sort).
 // The array becomes increasingly sorted with each pass, making the final insertion sort very fast.
 //
-// Time complexity: O(n^(3/2)) average case using Knuth's sequence (3h+1: 1, 4, 13, 40, 121...)
-// Space complexity: O(1) - in-place sorting, only uses constant extra space
+// Performance characteristics:
+// - Time: O(N lg N) - depends on gap sequence
+// - Space: O(1) - in-place sorting
+// - Stable: No
+// - In-place: Yes
+// - Notes: Simple code, subquadratic performance
 //
-// Best for: Medium-sized arrays where O(n log n) algorithms are overkill but O(n²) is too slow
+// Use Shell Sort when:
+// - Simple implementation is desired
+// - Small to medium-sized arrays
+// - Reasonable performance is acceptable
+// - Cannot afford O(N) extra space for merge sort
 func ShellSort(arr []int) {
 	n := len(arr)
 
