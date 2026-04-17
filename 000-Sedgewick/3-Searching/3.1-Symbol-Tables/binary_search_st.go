@@ -109,8 +109,8 @@ func (st *BinarySearchST) deleteMax() {
 	panic("not implemented")
 }
 
-// keys returns all keys in sorted order
-func (st *BinarySearchST) keys() []string {
+// Keys returns all keys in sorted order
+func (st *BinarySearchST) Keys() []string {
 	// TODO: implement
 	panic("not implemented")
 }
