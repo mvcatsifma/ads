@@ -1,6 +1,6 @@
-# leetcode
+# ads
 
-Personal solutions to LeetCode problems and algorithm implementations from Sedgewick's *Algorithms* textbook, written in Go.
+Personal algorithms and data structures study repository in Go. Covers LeetCode problem solutions, implementations from Sedgewick's *Algorithms* textbook, and topic-based explorations of core CS concepts.
 
 ## Structure
 
